@@ -1,0 +1,193 @@
+body {
+    font-family: Microsoft JhengHei, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: #E1E1E1;
+}
+
+.h24 {
+    height: 24px;
+}
+
+.h60 {
+    height: 60px;
+}
+
+.bg-normal-blue {
+    background-color: $normal-blue;
+}
+
+.navbar-light .navbar-nav .show>.nav-link,
+.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .nav-link.active {
+    color: white;
+    border-bottom: 2px solid $dark-blue;
+}
+
+.modal-header {
+    .inputBlock {
+        flex: 3 1;
+        .form-group {
+            margin-bottom: 0;
+        }
+    }
+    .iconBlock {
+        flex: 1 1;
+        display: flex;
+        justify-content: center;
+        align-self: stretch;
+        align-items: center;
+        input[type="checkbox"] {
+            display: none;
+        }
+        input[type="checkbox"]+label[data-for="checkStar"] {
+            display: inline-block;
+            vertical-align: text-bottom;
+            margin-left: 5px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        label[data-for="checkStar"]::before {
+            font-family: "Font Awesome 5 Free";
+            content: "\f005";
+            display: inline-block;
+            color: black;
+        }
+        input[type="checkbox"]:checked+label[data-for="checkStar"]::before {
+            font-family: "Font Awesome 5 Free";
+            content: "\f005";
+            display: inline-block;
+            color: $normal-orange;
+        }
+    }
+}
+
+.modal-body {
+    .form-group {
+        .col-form-label {
+            padding-top: 0;
+        }
+    }
+}
+
+.modal-footer {
+    .btn-block:first-child {
+        margin-top: .5rem;
+    }
+}
+
+.uplooad-block{
+    p{
+        vertical-align: text-bottom;
+    }
+}
+
+button {
+    i {
+        margin-right: 10px;
+    }
+}
+
+.icon-data {
+    i:first-child {
+        margin-left: 0;
+    }
+    i {
+        margin-left: 10px;
+        color: $dark-gray;
+    }
+    p {
+        color: $dark-gray;
+        margin-bottom: 0;
+    }
+}
+
+.decoration-line-through{
+    h4{
+        text-decoration: line-through;
+        color:$dark-gray;
+    }
+}
+
+.turn-orange{
+    color:$normal-orange;
+}
+
+.task-list-item {
+    background-color: $normal-gray;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    .btn-link {
+        color: #212529;
+        &:hover{
+            color: #212529;
+        }
+    }
+    .flex-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    input[type="checkbox"] {
+        display: none;
+    }
+    input[type="checkbox"]+label[data-for="checkbox"] {
+        display: inline-block;
+        vertical-align: text-bottom;
+        margin-left: 5px;
+        margin-top: 5px;
+        box-sizing: border-box;
+    }
+    label[data-for="checkbox"]::before {
+        content: "";
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background: white;
+        vertical-align: text-bottom;
+        border-radius: 3px;
+        margin-right: 5px;
+        margin-bottom: 2px;
+        box-sizing: border-box;
+        transition: background ease-in 0.5s;
+    }
+    input[type="checkbox"]:checked+label[data-for="checkbox"]::before {
+        box-sizing: border-box;
+        background-color: $normal-blue;
+        line-height: 40px;
+        content: "√";
+        color: white;
+        font-size: 32px;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+    }
+}
+
+.bg-orange{
+    background-color: $light-orange;
+}
+
+.upload_cover {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+    background: #cccccc;
+    border-radius: 10%;
+}
+
+.upload_input {
+    display: none;
+}
+
+.upload_icon {
+    color: #efefef;
+    font-weight: bold;
+    font-size: 180%;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 20%;
+}

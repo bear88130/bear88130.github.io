@@ -1,0 +1,201 @@
+@charset "UTF-8";
+body {
+  font-family: Microsoft JhengHei, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background-color: #E1E1E1;
+}
+
+.h24 {
+  height: 24px;
+}
+
+.h60 {
+  height: 60px;
+}
+
+.bg-normal-blue {
+  background-color: #4A90E2;
+}
+
+.navbar-light .navbar-nav .show > .nav-link,
+.navbar-light .navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .nav-link.active {
+  color: white;
+  border-bottom: 2px solid #00408B;
+}
+
+.modal-header .inputBlock {
+  flex: 3 1;
+}
+.modal-header .inputBlock .form-group {
+  margin-bottom: 0;
+}
+.modal-header .iconBlock {
+  flex: 1 1;
+  display: flex;
+  justify-content: center;
+  align-self: stretch;
+  align-items: center;
+}
+.modal-header .iconBlock input[type=checkbox] {
+  display: none;
+}
+.modal-header .iconBlock input[type=checkbox] + label[data-for=checkStar] {
+  display: inline-block;
+  vertical-align: text-bottom;
+  margin-left: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+.modal-header .iconBlock label[data-for=checkStar]::before {
+  font-family: "Font Awesome 5 Free";
+  content: "";
+  display: inline-block;
+  color: black;
+}
+.modal-header .iconBlock input[type=checkbox]:checked + label[data-for=checkStar]::before {
+  font-family: "Font Awesome 5 Free";
+  content: "";
+  display: inline-block;
+  color: #F5A623;
+}
+
+.modal-body .form-group .col-form-label {
+  padding-top: 0;
+}
+
+.modal-footer .btn-block:first-child {
+  margin-top: 0.5rem;
+}
+
+.uplooad-block p {
+  vertical-align: text-bottom;
+}
+
+button i {
+  margin-right: 10px;
+}
+
+.icon-data i:first-child {
+  margin-left: 0;
+}
+.icon-data i {
+  margin-left: 10px;
+  color: #757575;
+}
+.icon-data p {
+  color: #757575;
+  margin-bottom: 0;
+}
+
+.decoration-line-through h4 {
+  text-decoration: line-through;
+  color: #757575;
+}
+
+.turn-orange {
+  color: #F5A623;
+}
+
+.task-list-item {
+  background-color: #F2F2F2;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+.task-list-item .btn-link {
+  color: #212529;
+}
+.task-list-item .btn-link:hover {
+  color: #212529;
+}
+.task-list-item .flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.task-list-item input[type=checkbox] {
+  display: none;
+}
+.task-list-item input[type=checkbox] + label[data-for=checkbox] {
+  display: inline-block;
+  vertical-align: text-bottom;
+  margin-left: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+.task-list-item label[data-for=checkbox]::before {
+  content: "";
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: white;
+  vertical-align: text-bottom;
+  border-radius: 3px;
+  margin-right: 5px;
+  margin-bottom: 2px;
+  box-sizing: border-box;
+  transition: background ease-in 0.5s;
+}
+.task-list-item input[type=checkbox]:checked + label[data-for=checkbox]::before {
+  box-sizing: border-box;
+  background-color: #4A90E2;
+  line-height: 40px;
+  content: "√";
+  color: white;
+  font-size: 32px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.bg-orange {
+  background-color: #FFF2DC;
+}
+
+.upload_cover {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  cursor: pointer;
+  background: #cccccc;
+  border-radius: 10%;
+}
+
+.upload_input {
+  display: none;
+}
+
+.upload_icon {
+  color: #efefef;
+  font-weight: bold;
+  font-size: 180%;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 20%;
+}
+
+/* 桌機 */
+@media (min-width: 980px) {
+  .navbar {
+    padding: 0 1rem;
+  }
+
+  .nav-link {
+    padding: 1rem 1rem;
+  }
+
+  .navbar-light .navbar-nav .show > .nav-link,
+.navbar-light .navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .nav-link.active {
+    padding: 1rem 1rem;
+  }
+}
+/* 平板 */
+/* 手機 */
+/* For320px */
+
+/*# sourceMappingURL=style.css.map */

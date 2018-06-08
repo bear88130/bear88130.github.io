@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ToDoList</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./bs4.1.1/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="./bs4.1.1/js/bootstrap.min.js"></script>
+    <script src="./My97DatePicker/WdatePicker.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-normal-blue fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">ToDoList</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">清單列表
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">待辦事件</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">完成事件</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="找事件..." aria-label="Search">
+                    <button class="btn btn-light my-2 my-sm-0" type="submit">
+                        <i class="fas fa-search"></i>搜尋</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="h60"></div>
+    <div class="h24"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fas fa-plus"></i>新增事件</button>
+                <div class="modal fade metter-form" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="inputBlock">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="事件名稱">
+                                    </div>
+                                </div>
+                                <div class="iconBlock">
+                                    <input id="agreeCheckBox" type="checkbox">
+                                    <label for="agreeCheckBox" data-for="checkStar"></label>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="form-group">
+                                            <label for="date-input" class="col-form-label icon-label">截止日:</label>
+                                            <input type="text" class="form-control" id="date-input" onclick="WdatePicker({lang:'zh-tw',dateFmt:'yyyy-MM-dd HH:mm'})">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-1">
+                                        <i class="far fa-comments"></i>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="form-group">
+                                            <label for="message-text" class="col-form-label icon-label">備註:</label>
+                                            <textarea class="form-control" id="message-text"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-1">
+                                        <i class="far fa-file"></i>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="form-group">
+                                            <label for="file-input" class="col-form-label icon-label">檔案:</label>
+                                            <br>
+                                            <label class="upload_cover">
+                                                <input type="file" id="file-input" class="upload_input">
+                                                <i class="upload_icon fas fa-upload"></i>
+                                            </label>
+                                            <br>
+                                            <img id="preview_img" alt="empty preview" width="250px">
+                                            <p id="preview-p"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">
+                                    <i class="fas fa-times"></i>關閉</button>
+                                <button type="button" class="btn btn-danger btn-block">
+                                    <i class="fas fa-trash"></i>刪除</button>
+                                <button type="button" class="btn btn-primary btn-block">
+                                    <i class="fas fa-plus"></i>新增</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h24"></div>
+        <div class="task-list-item">
+            <div class="row">
+                <div class="col-2 col-md-1 align-self-center">
+                    <div class="flex-center">
+                        <input id="finishCheckBox" type="checkbox">
+                        <label for="finishCheckBox" data-for="checkbox"></label>
+                    </div>
+                </div>
+                <div class="col-8 col-md-9">
+                    <div class="row">
+                        <div class="col-md-12 text-truncate">
+                            <h4>二級玩家</h4>
+                        </div>
+                        <div class="col-md-12 icon-data ">
+                            <i class="far fa-calendar-alt"></i>
+                            <p class="d-inline-block">2018/06/20</p>
+                            <i class="far fa-comments"></i>
+                            <i class="far fa-file"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 col-md-1 align-self-center">
+                    <div class="flex-center">
+                        <i class="far fa-star fa-lg"></i>
+                    </div>
+                </div>
+                <div class="col-1 col-md-1 align-self-center">
+                    <div class="flex-center">
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModa2">
+                            <i class="fas fa-pencil-alt fa-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade metter-form" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="inputBlock">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="二級玩家">
+                                </div>
+                            </div>
+                            <div class="iconBlock">
+                                <input id="agreeCheckBox1" type="checkbox">
+                                <label for="agreeCheckBox1" data-for="checkStar"></label>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="far fa-calendar-alt"></i>
+                                </div>
+                                <div class="col-11">
+                                    <div class="form-group">
+                                        <label for="date-input" class="col-form-label icon-label">截止日:</label>
+                                        <input type="text" class="form-control" id="date-input" value="2018/06/20 00:00" onclick="WdatePicker({lang:'zh-tw',dateFmt:'yyyy-MM-dd HH:mm'})">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="far fa-comments"></i>
+                                </div>
+                                <div class="col-11">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label icon-label">備註:</label>
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="far fa-file"></i>
+                                </div>
+                                <div class="col-11 uplooad-block">
+                                    <div class="form-group">
+                                        <label for="file-input2" class="col-form-label icon-label">檔案:</label>
+                                        <br>
+                                        <p class="d-inline-block">game1.jpg</p>
+                                        <label class="upload_cover">
+                                            <input id="file-input2" type="file" class="upload_input">
+                                            <i class="upload_icon fas fa-upload"></i>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">
+                                <i class="fas fa-times"></i>關閉</button>
+                            <button type="button" class="btn btn-danger btn-block">
+                                <i class="fas fa-trash"></i>刪除</button>
+                            <button type="button" class="btn btn-primary btn-block">
+                                <i class="fas fa-pencil-alt"></i>修改</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="task-list-item">
+            <div class="row">
+                <div class="col-2 col-md-1 align-self-center">
+                    <div class="flex-center">
+                        <input id="finishCheckBox1" type="checkbox" checked>
+                        <label for="finishCheckBox1" data-for="checkbox"></label>
+                    </div>
+                </div>
+                <div class="col-8 col-md-9">
+                    <div class="row">
+                        <div class="col-md-12 text-truncate decoration-line-through">
+                            <h4>二級玩家</h4>
+                        </div>
+                        <div class="col-md-12 icon-data ">
+                            <i class="far fa-calendar-alt"></i>
+                            <p class="d-inline-block">2018/06/20</p>
+                            <i class="far fa-comments"></i>
+                            <i class="far fa-file"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 col-md-1 align-self-center">
+                    <div class="flex-center">
+                        <i class="far fa-star fa-lg"></i>
+                    </div>
+                </div>
+                <div class="col-1 col-md-1 align-self-center">
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModa2">
+                        <i class="fas fa-pencil-alt fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="task-list-item bg-orange">
+            <div class="row">
+                <div class="col-2 col-md-1 align-self-center">
+                    <div class="flex-center">
+                        <input id="finishCheckBox2" type="checkbox">
+                        <label for="finishCheckBox2" data-for="checkbox"></label>
+                    </div>
+                </div>
+                <div class="col-8 col-md-9">
+                    <div class="row">
+                        <div class="col-md-12 text-truncate">
+                            <h4>二級玩家</h4>
+                        </div>
+                        <div class="col-md-12 icon-data ">
+                            <i class="far fa-calendar-alt"></i>
+                            <p class="d-inline-block">2018/06/20</p>
+                            <i class="far fa-comments"></i>
+                            <i class="far fa-file"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 col-md-1 align-self-center">
+                    <div class="flex-center">
+                        <i class="far fa-star fa-lg turn-orange"></i>
+                    </div>
+                </div>
+                <div class="col-1 col-md-1 align-self-center">
+                    <div class="flex-center">
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModa2">
+                            <i class="fas fa-pencil-alt fa-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h24"></div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <script>
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $("#preview_img").attr("src", e.target.result);
+        }
+
+        $("#file-input").change(function () {
+            var upload_file = $("#file-input")[0].files[0];
+            reader.readAsDataURL(upload_file);
+
+            var file = $("#file-input").val();
+            var strFileName = file.replace(/^.+?\\([^\\]+?)(\.[^\.\\]*?)?$/gi, "$1");  //正则表达式获取文件名，不带后缀
+            var FileExt = file.replace(/.+\./, "");   //正则表达式获取后缀
+            document.getElementById("preview-p").innerHTML = strFileName+"."+FileExt;
+        })
+    </script>
+
+
+</body>
+
+</html>
