@@ -141,7 +141,7 @@ button i {
   box-sizing: border-box;
   background-color: #4A90E2;
   line-height: 40px;
-  content: "√";
+  content: "✓";
   color: white;
   font-size: 32px;
   width: 40px;
