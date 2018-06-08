@@ -4,6 +4,10 @@ body {
   background-color: #E1E1E1;
 }
 
+.h8 {
+  height: 8px;
+}
+
 .h24 {
   height: 24px;
 }
@@ -193,9 +197,28 @@ button i {
 .navbar-light .navbar-nav .nav-link.active {
     padding: 1rem 1rem;
   }
+
+  .sm-top10 {
+    margin-top: 0;
+  }
 }
 /* 平板 */
+@media (min-width: 768px) and (max-width: 979px) {
+  .sm-top8 {
+    margin-top: 8px;
+  }
+}
 /* 手機 */
+@media (max-width: 767px) {
+  .sm-top8 {
+    margin-top: 8px;
+  }
+}
 /* For320px */
+@media (max-width: 340px) {
+  .sm-top8 {
+    margin-top: 8px;
+  }
+}
 
 /*# sourceMappingURL=style.css.map */

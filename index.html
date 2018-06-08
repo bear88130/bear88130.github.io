@@ -133,13 +133,13 @@
         <div class="h24"></div>
         <div class="task-list-item">
             <div class="row">
-                <div class="col-2 col-md-1 align-self-center">
+                <div class="col-3 col-md-1 align-self-center">
                     <div class="flex-center">
                         <input id="finishCheckBox" type="checkbox">
                         <label for="finishCheckBox" data-for="checkbox"></label>
                     </div>
                 </div>
-                <div class="col-8 col-md-9">
+                <div class="col-9 col-md-9">
                     <div class="row">
                         <div class="col-md-12 text-truncate">
                             <h4>二級玩家</h4>
@@ -152,18 +152,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-1 col-md-1 align-self-center">
+
+                <div class="col-6 col-md-1 align-self-center sm-top8">
                     <div class="flex-center">
                         <i class="far fa-star fa-lg"></i>
                     </div>
                 </div>
-                <div class="col-1 col-md-1 align-self-center">
+                <div class="col-6 col-md-1 align-self-center sm-top8">
                     <div class="flex-center">
                         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModa2">
                             <i class="fas fa-pencil-alt fa-lg"></i>
                         </button>
                     </div>
                 </div>
+
             </div>
 
             <div class="modal fade metter-form" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -238,13 +240,13 @@
 
         <div class="task-list-item">
             <div class="row">
-                <div class="col-2 col-md-1 align-self-center">
+                <div class="col-3 col-md-1 align-self-center">
                     <div class="flex-center">
                         <input id="finishCheckBox1" type="checkbox" checked>
                         <label for="finishCheckBox1" data-for="checkbox"></label>
                     </div>
                 </div>
-                <div class="col-8 col-md-9">
+                <div class="col-9 col-md-9">
                     <div class="row">
                         <div class="col-md-12 text-truncate decoration-line-through">
                             <h4>二級玩家</h4>
@@ -257,12 +259,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-1 col-md-1 align-self-center">
+                <div class="col-6 col-md-1 align-self-center sm-top8">
                     <div class="flex-center">
                         <i class="far fa-star fa-lg"></i>
                     </div>
                 </div>
-                <div class="col-1 col-md-1 align-self-center">
+                <div class="col-6 col-md-1 align-self-center sm-top8">
                     <div class="flex-center">
                         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModa2">
                             <i class="fas fa-pencil-alt fa-lg"></i>
@@ -274,13 +276,13 @@
 
         <div class="task-list-item bg-orange">
             <div class="row">
-                <div class="col-2 col-md-1 align-self-center">
+                <div class="col-3 col-md-1 align-self-center">
                     <div class="flex-center">
                         <input id="finishCheckBox2" type="checkbox">
                         <label for="finishCheckBox2" data-for="checkbox"></label>
                     </div>
                 </div>
-                <div class="col-8 col-md-9">
+                <div class="col-9 col-md-9">
                     <div class="row">
                         <div class="col-md-12 text-truncate">
                             <h4>二級玩家</h4>
@@ -293,12 +295,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-1 col-md-1 align-self-center">
+                <div class="col-6 col-md-1 align-self-center sm-top8">
                     <div class="flex-center">
                         <i class="far fa-star fa-lg turn-orange"></i>
                     </div>
                 </div>
-                <div class="col-1 col-md-1 align-self-center">
+                <div class="col-6 col-md-1 align-self-center sm-top8">
                     <div class="flex-center">
                         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModa2">
                             <i class="fas fa-pencil-alt fa-lg"></i>
@@ -349,7 +351,7 @@
             var file = $("#file-input").val();
             var strFileName = file.replace(/^.+?\\([^\\]+?)(\.[^\.\\]*?)?$/gi, "$1");  //正则表达式获取文件名，不带后缀
             var FileExt = file.replace(/.+\./, "");   //正则表达式获取后缀
-            document.getElementById("preview-p").innerHTML = strFileName+"."+FileExt;
+            document.getElementById("preview-p").innerHTML = strFileName + "." + FileExt;
         })
     </script>
 
