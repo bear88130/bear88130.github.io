@@ -1,0 +1,278 @@
+@charset "UTF-8";
+body {
+  font-family: Microsoft JhengHei;
+  font-size: 16px;
+  background: #F2F2F2;
+}
+
+header {
+  background-color: #7828B4;
+}
+header a {
+  color: white;
+  text-decoration: none;
+}
+header a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.logo {
+  height: 60px;
+}
+.logo a {
+  font-family: Optima-ExtraBlack;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.flexCenter .flexBox {
+  flex: 0 0;
+}
+
+.flexStart {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 100%;
+}
+.flexStart .flexBox {
+  flex: 0 0;
+}
+
+.searchElement {
+  border-bottom: 1px solid white;
+}
+.searchElement i {
+  color: white;
+}
+.searchElement input {
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+  outline: none;
+}
+.searchElement input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  /* Firefox */
+}
+.searchElement input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgba(255, 255, 255, 0.5);
+}
+.searchElement input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: rgba(255, 255, 255, 0.5);
+}
+
+aside {
+  background-color: #EBEBEB;
+}
+
+.sideBlock {
+  padding: 24px 24px 0 24px;
+}
+.sideBlock .title h4 {
+  font-weight: bolder;
+}
+.sideBlock .title i {
+  float: right;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+select {
+  /* Chrome */
+  -webkit-appearance: none;
+  /* Firefox */
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: " ";
+  /* space */
+}
+
+.content input[type=checkbox] {
+  display: none;
+}
+.content input[type=checkbox] + label[data-info=checkbox] {
+  display: inline-block;
+  width: 100%;
+  vertical-align: text-bottom;
+  margin-left: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+.content label[data-info=checkbox]::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: white;
+  vertical-align: text-bottom;
+  border-radius: 3px;
+  margin-right: 5px;
+  margin-bottom: 2px;
+  box-sizing: border-box;
+  transition: background ease-in 0.5s;
+}
+.content input[type=checkbox]:checked + label[data-info=checkbox]::before {
+  box-sizing: border-box;
+  background-color: #ae51ff;
+  line-height: 20px;
+  content: "√";
+  color: white;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+.totalDataList {
+  padding: 24px 24px 0 24px;
+}
+.totalDataList h3 span {
+  color: #9013FE;
+}
+
+.tag {
+  display: inline;
+  color: #ae51ff;
+  border: 1px solid #ae51ff;
+  border-radius: 10px;
+  margin: 5px 10px;
+  padding: 5px 10px;
+}
+.tag button {
+  background-color: #ffffff00;
+  border: none;
+  color: #ae51ff;
+}
+
+.new-item-block {
+  margin: 24px 24px;
+}
+.new-item-block .item {
+  margin-bottom: 24px;
+}
+
+.item {
+  background-color: #fff;
+  border-radius: 10px;
+}
+.item h5 {
+  color: #9013FE;
+  margin-top: 24px;
+}
+.item .imgBlock {
+  min-height: 250px;
+  padding: 0;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.item .content {
+  min-height: 100px;
+}
+.item .writer {
+  font-weight: 900;
+  margin: 8px 0;
+}
+.item .location {
+  margin: 8px 0;
+}
+.item .location i {
+  margin: 0 8px 0 0;
+}
+.item .location span {
+  color: #757575;
+}
+.item .time {
+  margin: 8px 0;
+}
+.item .time i {
+  margin: 0 8px 0 0;
+}
+.item .time span {
+  color: #757575;
+}
+
+.page-link {
+  color: #9013FE;
+}
+
+.page-item.active .page-link {
+  background-color: #9013FE;
+  border-color: #9013FE;
+}
+
+.page-item.disabled .page-link {
+  color: #9013FE;
+}
+
+/* 桌機 */
+@media (min-width: 980px) {
+  .searchBlock {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 60px;
+    padding: 0 0;
+  }
+  .searchBlock .flexBox {
+    flex: 0 0 50%;
+  }
+
+  .sideBlock .title i {
+    display: none;
+  }
+}
+/* 平板 */
+@media (min-width: 768px) and (max-width: 979px) {
+  .container {
+    max-width: 100%;
+  }
+
+  .searchBlock {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 60px;
+    padding: 0 0;
+  }
+  .searchBlock .flexBox {
+    flex: 0 0 50%;
+  }
+
+  .sideBlock .title i {
+    display: none;
+  }
+}
+/* 手機 */
+@media (max-width: 767px) {
+  .searchBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    padding: 0 50px;
+  }
+  .searchBlock .flexBox {
+    flex: 0 0 100%;
+  }
+
+  .sideBlock .title i {
+    display: block;
+  }
+}
+/* For320px */
+
+/*# sourceMappingURL=style.css.map */

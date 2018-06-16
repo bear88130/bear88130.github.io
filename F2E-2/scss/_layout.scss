@@ -1,0 +1,225 @@
+body {
+    font-family: Microsoft JhengHei;
+    font-size: 16px;
+    background: $normal-gray;
+}
+
+header {
+    background-color: $dark-purple;
+    a {
+        color: white;
+        text-decoration: none;
+        &:hover {
+            color: white;
+            text-decoration: none;
+        }
+    }
+}
+
+.logo {
+    height: 60px;
+    a{
+        font-family: Optima-ExtraBlack;
+        font-size: 2rem;
+        font-weight: bolder;
+    }
+}
+
+.flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .flexBox {
+        flex: 0 0;
+    }
+}
+
+.flexStart {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 100%;
+    .flexBox {
+        flex: 0 0;
+    }
+}
+
+.searchElement {
+    border-bottom: 1px solid white;
+    i {
+        color: white;
+    }
+    input {
+        color: rgba(255, 255, 255, 50%);
+        background-color: rgba(0, 0, 0, 0);
+        border: 0;
+        outline: none;
+        &::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: rgba(255, 255, 255, 50%);
+            opacity: 1;
+            /* Firefox */
+        }
+        &:-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: rgba(255, 255, 255, 50%);
+        }
+        &::-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: rgba(255, 255, 255, 50%);
+        }
+    }
+}
+
+aside{
+background-color: #EBEBEB ;
+}
+
+.sideBlock{
+    padding: 24px 24px 0 24px;
+    .title{
+        h4{
+            font-weight: bolder;
+        }
+        i{
+            float: right;
+        }
+    }
+
+}
+
+select::-ms-expand{
+    display: none;
+}
+select{
+    /* Chrome */
+    -webkit-appearance: none;
+    /* Firefox */
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: ' '; /* space */
+}
+
+.content{
+    input[type="checkbox"]{
+        display: none;
+        }
+        input[type="checkbox"]+label[data-info="checkbox"] {
+        display: inline-block;
+        width: 100%;
+        vertical-align: text-bottom;
+        margin-left: 5px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        }
+        
+        label[data-info="checkbox"]::before {
+        content: "";
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: white;
+        vertical-align: text-bottom;
+        border-radius: 3px;
+        margin-right: 5px;
+        margin-bottom: 2px;
+        box-sizing: border-box;
+        transition: background ease-in 0.5s;
+        }
+        
+        input[type="checkbox"]:checked+label[data-info="checkbox"]::before{
+        box-sizing: border-box;
+        background-color: $light-purple;
+        line-height: 20px;
+        content: "√";
+        color:white ;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        }
+}
+
+.totalDataList{
+    padding: 24px 24px 0 24px;
+    h3{
+        span{
+            color:$normal-purple;
+        }
+    }
+}
+
+.tag{
+    display: inline;
+    color:$light-purple;
+    border: 1px solid $light-purple;
+    border-radius: 10px;
+    margin: 5px 10px;
+    padding:5px 10px; 
+    button{
+        background-color: #ffffff00;
+        border: none;
+        color:$light-purple;
+    }
+}
+
+.new-item-block{
+    margin: 24px 24px;
+    .item{
+        margin-bottom: 24px;
+    }
+}
+
+.item{
+    background-color: #fff;
+    border-radius: 10px;
+    h5{
+        color:$normal-purple;
+        margin-top: 24px;
+    }
+    .imgBlock{
+        min-height: 250px;
+        padding: 0;
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .content{
+        min-height: 100px;
+    }
+    .writer{
+        font-weight: 900;
+        margin:8px 0;
+    }
+    .location{
+        i{
+            margin: 0 8px 0 0;
+        }
+        span{
+            color:$dark-gray;
+        }
+        margin: 8px 0;
+    }
+    .time{
+        i{
+            margin: 0 8px 0 0;
+        }
+        span{
+            color:$dark-gray;
+        }
+        margin: 8px 0;
+    }
+}
+
+.page-link{
+    color:$normal-purple;
+}
+
+.page-item.active .page-link {
+    background-color: $normal-purple;
+    border-color: $normal-purple;
+}
+
+.page-item.disabled .page-link {
+    color: $normal-purple;
+}
