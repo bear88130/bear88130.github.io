@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ShopTime</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./bs4.1.1/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="./bs4.1.1/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <style>
+.axis path,.axis line{
+    fill:none;
+    stroke: black;
+    shape-rendering: crispEdges
+}
+.axis text{
+    font-size: 14px;
+}
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-2 logo row align-items-center justify-content-center">
+                    <a href="index.html">ShopTime</a>
+                </div>
+
+                <div class="col-8">
+                    <div class="flexBox">
+                        <article class="row">
+                            <nav>
+                                <li class="active">
+                                    <a href="">首頁</a>
+                                </li>
+                                <li>
+                                    <a href="">訂單</a>
+                                </li>
+                                <li>
+                                    <a href="">產品</a>
+                                </li>
+                            </nav>
+                            <!-- <div class="col-2">
+                                首頁
+                            </div>
+                            <div class="col-2">
+                                訂單
+                            </div>
+                            <div class="col-2">
+                                產品
+                            </div>
+                            <div class="col-6">
+                            </div> -->
+                        </article>
+                    </div>
+                </div>
+
+                <div class="col-2 row align-items-center justify-content-center">
+                    <a href="index.html">Admin</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="nav-bar row">
+            <div class="col-2">
+                <h5>概要</h5>
+            </div>
+            <div class="offset-md-5 col-3">
+                <span>2018/06/12</span>
+                <i class="fas fa-caret-right"></i>
+                <span>2018/06/22</span>
+            </div>
+            <div class="col-2">
+                <div class="selectParent">
+                    <select>
+                        <option value="day">日</option>
+                        <option value="week">周</option>
+                        <option value="year">年</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="totalBlock row">
+            <div class="col-3 item">
+                <div class="row">
+                    <div class="col-12 title text-center">
+                        <i class="fas fa-hand-holding-usd"></i>總收入</div>
+                    <div class="col-12 number text-center">
+                        <span data-info="revenue">54,540</span>
+                    </div>
+                </div>
+            </div>
+            <div class="offset-1 col-3 item">
+                <div class="row">
+                    <div class="col-12 title text-center">
+                        <i class="fas fa-boxes"></i>總支出</div>
+                    <div class="col-12 number text-center">
+                        <span data-info="cost">12,660</span>
+                    </div>
+                </div>
+            </div>
+            <div class="offset-1 col-3 item">
+                <div class="row">
+                    <div class="col-12 title text-center">
+                        <i class="fas fa-money-check-alt"></i>淨收入</div>
+                    <div class="col-12 number text-center">
+                        <span data-info="netIncome">41,880</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="d3 col-11">
+                <div class="row">
+                    <div class="col-12 chartBlock">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-5">
+                <div class="transactionBlock align-items-center">
+                    <div class="row">
+                        <div class="col-12 title">
+                            <h5>網站流量</h5>
+                        </div>
+                    </div>
+                    <div class="row align-items-center item no-gutters">
+                        <div class="col-2 icon">
+                            <i class="fab fa-facebook-square"></i>
+                        </div>
+                        <div class="col-5 link">
+                            <a href="">Facebook.com</a>
+                        </div>
+                        <div class="col-2 number">45,836</div>
+                        <div class="col-3 trend green">
+                            <i class="fas fa-arrow-up"></i>20%
+                        </div>
+                    </div>
+                    <div class="row align-items-center item no-gutters">
+                        <div class="col-2 icon">
+                            <i class="fab fa-google"></i>
+                            </i>
+                        </div>
+                        <div class="col-5 link">
+                            <a href="">Google.com</a>
+                        </div>
+                        <div class="col-2 number">23,582</div>
+                        <div class="col-3 trend green">
+                            <i class="fas fa-arrow-up"></i>15%
+                        </div>
+                    </div>
+                    <div class="row align-items-center item no-gutters">
+                        <div class="col-2 icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="col-5 link">
+                            <a href="">Shopify.com</a>
+                        </div>
+                        <div class="col-2 number">2,489</div>
+                        <div class="col-3 trend red">
+                            <i class="fas fa-arrow-down"></i>20%</div>
+                    </div>
+                    <div class="row align-items-center item no-gutters">
+                        <div class="col-2 icon">
+                            <i class="fab fa-wordpress-simple"></i>
+                        </div>
+                        <div class="col-5 link">
+                            <a href="">Wordpress.com</a>
+                        </div>
+                        <div class="col-2 number">1,057</div>
+                        <div class="col-3 trend red">
+                            <i class="fas fa-arrow-down"></i>30%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="offset-1 col-5">
+                <div class="ordersBlock">
+                    <h5>最新訂單</h5>
+                    <div class="row item align-items-center no-gutters">
+                        <div class="col-2 image" style="background-image:url('image/300px.png')"></div>
+                        <div class="col-7 content">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <h6> Vintage T-shirt</h6>
+                                </div>
+                                <div class="col-12 time">2018/6/13 13:42</div>
+                                <div class="col-12 buyer">Belle Willis</div>
+                            </div>
+                        </div>
+                        <div class="col-3 money  align-self-end text-right">總金額
+                            <br>
+                            <span>3,200</span>
+                        </div>
+                    </div>
+                    <div class="row item align-items-center no-gutters">
+                        <div class="col-2 image" style="background-image:url('image/300px.png')"></div>
+                        <div class="col-7 content">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <h6>Cowboy Jacket</h6>
+                                </div>
+                                <div class="col-12 time">2018/6/13 10:45</div>
+                                <div class="col-12 buyer">Adrian Cummings</div>
+                            </div>
+                        </div>
+                        <div class="col-3 money align-self-end text-right">總金額
+                            <br>
+                            <span>2,800</span>
+                        </div>
+                    </div>
+                    <div class="row item align-items-center no-gutters">
+                        <div class="col-2 image" style="background-image:url('image/300px.png')"></div>
+                        <div class="col-7 content">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <h6> Coach Coat</h6>
+                                </div>
+                                <div class="col-12 time">2018/6/13 08:26</div>
+                                <div class="col-12 buyer">Lura Holland</div>
+                            </div>
+                        </div>
+                        <div class="col-3 money  align-self-end text-right">總金額
+                            <br>
+                            <span>1,600</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+            
+
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: ["6 JUN", "7 JUN", "8 JUN", "9 JUN", "10 JUN", "11 JUN", "12 JUN"],
+        datasets: [{
+            label: "FB",
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderColor: 'rgb(0,0,0)',
+            data: [0, 1088, 5000, 4572, 2420, 4430, 4545],
+        },
+        {
+            label: "Google",
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderColor: 'blue',
+            data: [4020, 1003, 4480, 2002, 1248, 3140, 1085],
+        },
+        {
+            label: "Wordpress",
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderColor: 'red',
+            data: [7005, 5010, 1055,4454, 2000, 3006, 2500],
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+    }
+});
+
+    </script>
+
+</body>
+
+</html>
