@@ -1,0 +1,456 @@
+body {
+    font-family: Microsoft JhengHei;
+    font-size: 16px;
+}
+
+.logo {
+    margin: 24px 0 0 0;
+    text-align: center;
+    span{
+        padding: 0 10px;
+        background: #000000;
+        widows: 130px;
+        height: 30px;
+        font-family: Roboto-Black;
+        font-size: 20px;
+        color: #FFFFFF;
+        text-align: center;
+    }
+}
+
+.title {
+    font-family: Roboto-Black;
+    font-size: 72px;
+    color: #000000;
+    text-align: center;
+    font-weight: 900;
+}
+
+img{
+    object-fit: contain;
+    width: 100%;
+    object-position: center;
+}
+
+.gradient1 {
+    font-family: Roboto-Black;
+    font-size: 48px;
+    font-weight: 900;
+    margin: 0;
+    height: .5em;
+    overflow: hidden;
+    opacity: 0.1;
+}
+
+.gradient2 {
+    font-family: Roboto-Black;
+    font-size: 48px;
+    font-weight: 900;
+    margin: 0;
+    height: .5em;
+    overflow: hidden;
+    line-height: .6em;
+    opacity: 0.3;
+}
+
+.gradient3 {
+    font-family: Roboto-Black;
+    font-size: 48px;
+    font-weight: 900;
+    margin: 0;
+    line-height: .6em;
+}
+
+.subtitle{
+    font-family: Roboto-BoldItalic;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.number{
+    font-family: Roboto-Black;
+    font-size: 48px;
+    font-weight: 900;
+}
+
+.slash {
+    background-size: 50px 50px;
+    background-color: rgba(255, 255, 255,0);
+    background-image:          
+        linear-gradient(
+    45deg,
+    #50E3C2 25%, 
+    transparent 25%, 
+    transparent 50%, 
+    #50E3C2 50%, 
+    #50E3C2 75%, 
+    transparent 75%, 
+    transparent);
+}
+
+.empty {
+    background-color: rgba(255, 255, 255,0);
+    border:15px solid #50E3C2;      
+}
+
+.fill{
+    background-color: #50E3C2;
+}
+
+.layout-grid{
+    display: grid; 
+    grid-template-columns: repeat(8,135px);
+    grid-template-rows: repeat(19,100px);
+    grid-template-areas:
+"a-t a-t a-t a-eb . . . ."
+"a a a a . b-st b-eb b-n"
+"a a a a . b b b-fb"
+"a a a a . b b ."
+"a a a a a-st . b-t b-t"
+"a-n a-sb a-sb . . . . ."
+"c-fb c-t c-t c-t . d-eb d-st d-st"
+"c c c c d-t d-t d d"
+"c c c c . . d d"
+"c-st c-st . c-eb c-n . d d"
+". e-sb . . . d-n d d"
+". e-t e e e-st . d-sb ."
+". e-n e e . . . f-t"
+". e-eb . . f f f f"
+"g-st g-eb . f-n f f f f"
+"g g g-t f-fb f f f f"
+"g g . . f f f f"
+"g g g-fb . f-eb f-st . ."
+"g g g-n . . . . .";
+}
+
+.grid-block1{
+    grid-area: a;
+    overflow: hidden;
+    img{
+        object-position: 0 -150px;
+        position: relative;
+    }
+}
+.grid1-title{
+    grid-area: a-t;
+    position: relative;
+    top: 55px;
+    left: 10px;
+}
+.grid1-subtitle{
+    grid-area: a-st;
+    position: relative;
+    transform-origin: left top;
+    transform: rotate(90deg);
+    top: 0px;
+    left: 25px;
+}
+.grid1-number{
+    grid-area: a-n;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+.grid1-slash{
+    grid-area: a-sb;
+    position: relative;
+    top: -45px;
+    left: -80px;
+}
+.grid1-empty{
+    grid-area: a-eb;
+    position: relative;
+    top: 40px;
+    right: 50px;
+    z-index: -1;
+    .empty{
+        width: 240px;
+        height: 200px;
+    }
+}
+
+.grid-block2{
+    grid-area: b;
+    overflow: hidden;
+    img{
+        object-position: 0 -100px;
+    }
+}
+
+.grid2-title{
+    grid-area: b-t;
+    position: relative;
+    top: -10px;
+    left: 0;
+}
+.grid2-subtitle{
+    grid-area: b-st;
+    position: relative;
+    top: 70px;
+    left: -15px;
+}
+.grid2-number{
+    grid-area: b-n;
+    text-align: right;
+    position: relative;
+    top: -25px;
+    left: 0;
+}
+.grid2-fill{
+    grid-area: b-fb;
+    position: relative;
+    top: -50px;
+    left: -210px;
+    z-index: -1;
+    .fill{
+        width: 270px;
+        height: 200px;
+    }
+}
+.grid2-empty{
+    grid-area: b-eb;
+    position: relative;
+    top: -10px;
+    left: 0;
+    z-index: -2;
+    .empty{
+        width: 270px;
+        height: 200px;
+    }
+}
+
+.grid-block3{
+    grid-area: c;
+    overflow: hidden;
+    img{
+        object-position: 0 -80px;
+    }
+}
+.grid3-title{
+    grid-area: c-t;
+    position: relative;
+    top: 15px;
+    left: 50px;
+}
+.grid3-subtitle{
+    grid-area: c-st;
+    text-align: center;
+    position: relative;
+    top: 0;
+    left: -15px;
+}
+.grid3-number{
+    grid-area: c-n;
+    text-align: left;
+    position: relative;
+    top: -5px;
+    left: 5px;
+}
+.grid3-fill{
+    grid-area: c-fb;
+    position: relative;
+    top: 60px;
+    left: 0;
+    z-index: -1;
+    .fill{
+        width: 270px;
+        height: 200px;
+    }
+}
+.grid3-empty{
+    grid-area: c-eb;
+    position: relative;
+    bottom: 150px;
+    right: 80px;
+    z-index: -1;
+    .empty{
+        width: 270px;
+        height: 200px;
+    }
+}
+
+.grid-block4{
+    grid-area: d;
+    overflow: hidden;
+}
+
+.grid4-title{
+    grid-area: d-t;
+    position: relative;
+    top: 165px;
+    left: 190px;
+    transform-origin: left top;
+    transform: rotate(270deg);
+}
+.grid4-subtitle{
+    grid-area: d-st;
+    position: relative;
+    bottom: 40px;
+    left: 215px;
+    transform-origin: left top;
+    transform: rotate(90deg);
+}
+.grid4-number{
+    grid-area: d-n;
+    text-align: right;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.grid4-slash{
+    grid-area: d-sb;
+    position: relative;
+    bottom: 100px;
+    left: 0;
+    .slash{
+        width: 270px;
+        height: 100px;
+    }
+}
+.grid4-empty{
+    grid-area: d-eb;
+    position: relative;
+    top: 0;
+    left: 80px;
+    z-index: -1;
+    .empty{
+        width: 240px;
+        height: 200px;
+    }
+}
+
+.grid-block5{
+    grid-area: e;
+    img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    .grid-title{
+        position: relative;
+        width: 400px;
+        right: 255px;
+        bottom: 190px;
+    }
+    .grid-subtitle{
+        position: relative;
+        left: 275px;
+        bottom: 285px;
+    }
+    .grid-number{
+        position: relative;
+        right: 120px;
+        bottom: 170px;
+    }
+    .grid-slash{
+        position: relative;
+        right: 200px;
+        bottom: 450px;
+        .slash{
+            width: 254px;
+            height: 100px;
+        }
+    }
+    .grid-empty{
+        position: relative;
+        right: 125px;
+        bottom: 325px;
+        z-index: -1;
+        .empty{
+        width: 240px;
+        height: 100px;
+        }
+    }
+}
+
+.grid-block6{
+    grid-area: f;
+    img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    .grid-title{
+        position: relative;
+        width: 400px;
+        left: 145px;
+        bottom: 485px;
+    }
+    .grid-subtitle{
+        position: relative;
+        left: 220px;
+        bottom: 80px;
+    }
+    .grid-number{
+        position: relative;
+        right: 50px;
+        bottom: 370px;
+    }
+    .grid-fill{
+        position: relative;
+        right: 60px;
+        bottom: 385px;
+        z-index: -1;
+        .fill{
+            width: 240px;
+            height: 200px;
+        }
+    }
+    .grid-empty{
+        position: relative;
+        right: 0;
+        bottom: 535px;
+        z-index: -1;
+        .empty{
+        width: 540px;
+        height: 200px;
+        }
+    }
+}
+
+.grid-block7{
+    grid-area: g;
+    img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    .grid-title{
+        position: relative;
+        width: 400px;
+        left: 350px;
+        bottom: 400px;
+        transform-origin: left top;
+        transform: rotate(90deg);
+    }
+    .grid-subtitle{
+        position: relative;
+        left: 0px;
+        bottom: 510px;
+    }
+    .grid-number{
+        position: relative;
+        left: 330px;
+        bottom: 170px;
+    }
+    .grid-fill{
+        position: relative;
+        left: 140px;
+        bottom: 365px;
+        z-index: -1;
+        .fill{
+            width: 240px;
+            height: 180px;
+        }
+    }
+    .grid-empty{
+        position: relative;
+        left: 95px;
+        bottom: 825px;
+        z-index: -1;
+        .empty{
+        width: 240px;
+        height: 400px;
+        }
+    }
+}

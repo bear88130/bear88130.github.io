@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .block {
+            background-color:rgb(90, 80, 227);
+            height: calc(100vh - 25px);
+            width: calc(100vw-25px);
+        }
+
+        .block li {
+            list-style: none;
+        }
+
+        .gradient1 {
+            margin: 0;
+            height: .5em;
+            overflow: hidden;
+            opacity: 0.1;
+        }
+
+        .gradient2 {
+            margin: 0;
+            height: .5em;
+            overflow: hidden;
+            line-height: .6em;
+            opacity: 0.3;
+        }
+
+        .gradient3 {
+            margin: 0;
+            line-height: .6em;
+        }
+
+        .slashBlock {
+            height: 500px;
+            background-size: 50px 50px;
+            background-color: rgba(255, 255, 255,0);
+            background-image:          
+                linear-gradient(
+            45deg,
+            #50E3C2 25%, 
+            transparent 25%, 
+            transparent 50%, 
+            #50E3C2 50%, 
+            #50E3C2 75%, 
+            transparent 75%, 
+            transparent);
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul class="block">
+        <h3 class="gradient1">LINEN BLAZER</h3>
+        <h3 class="gradient2">LINEN BLAZER</h3>
+        <h3 class="gradient3">LINEN BLAZER</h3>
+        <li class="slashBlock"></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>
