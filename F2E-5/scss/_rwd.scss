@@ -1,0 +1,47 @@
+/* 桌機 */
+
+@media (min-width: 992px) {
+    .read-title{
+        text-align: center;
+    }
+    .changeRight2Left{
+        justify-content: flex-end;
+    }
+    .i-size{
+        font-size: 48px;
+    }
+}
+
+/* 平板 */
+
+@media (min-width: 768px) and (max-width:991px) {
+    .read-title{
+        text-align: left;
+    }
+    .changeRight2Left{
+        justify-content: flex-start;
+    }
+    .i-size{
+        font-size: 24px;
+    }
+}
+
+/* 手機 */
+
+@media (max-width: 767px) {
+    .read-title{
+        text-align: left;
+    }
+    .changeRight2Left{
+        justify-content: flex-start;
+    }
+    .i-size{
+        font-size: 14px;
+    }
+}
+
+/* For320px */
+
+@media (max-width: 340px) {
+
+}

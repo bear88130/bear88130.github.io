@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Comicomic</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./bs4.1.1/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="./bs4.1.1/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <span>Comicomic</span>
+        </div>
+    </header>
+
+    <div class="container introduction homePage beNone">
+        <div class="row no-gutters">
+            <div class="col-lg-6 col-12 cover" style="background-image: url(image/comic-cover.png)"></div>
+            <div class="col-lg-6 col-12">
+                <div class="title">
+                    <span>MY HEXSCHOOL</span>
+                </div>
+                <div class="row no-gutters content">
+                    <div class="col-lg-3 col-12 fieldName">
+                        <span>Genres</span>
+                    </div>
+                    <div class="col-lg-9 col-12 fieldContent">
+                        <span>Fusce/vehicula/dolor</span>
+                    </div>
+                    <div class="col-lg-3 col-12 fieldName">
+                        <span>Author</span>
+                    </div>
+                    <div class="col-lg-9 col-12 fieldContent">
+                        <span>Namae Shiranai</span>
+                    </div>
+                    <div class="col-lg-3 col-12 fieldName">
+                        <span>Status</span>
+                    </div>
+                    <div class="col-lg-9 col-12 fieldContent">
+                        <span>Ongoing</span>
+                    </div>
+                    <div class="col-lg-3 col-12 fieldName">
+                        <span>Rate</span>
+                    </div>
+                    <div class="col-lg-9 col-12 fieldContent">
+                        <span>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                    </div>
+                    <div class="col-12 fieldName">
+                        <span>Summary</span>
+                    </div>
+                    <div class="col-12 fieldContent">
+                        <span>
+                            If your banker breaks, you snap; if your apothecary by mistake sends you poison in your pills, you die. Therefore, I say,
+                            I saw that this situation of mine was the precise situation of every mortal that has this Siamese
+                            connexion with a plurality of other mortals.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 chapters">
+                <div class="title-block">
+                    <span>All Chapters</span>
+                </div>
+                <div class="row no-gutters item-block">
+                    <div class="col-12 item">
+                        <a href="#" onclick="alert('chapter 1');" class="highNews">Chapter 1: The F2E Challenge Start!</a>
+                    </div>
+                    <div class="col-12 item">Chapter 2: Todo List is Going Crazy! </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container readPage">
+        <div class="row read">
+            <div class="col-lg-3 col-12 order-lg-1 order-2 read-title">
+                <a href="#" onclick="alert('My Hexschool');">My Hexschool</a>
+            </div>
+            <div class="col-lg-3 col-12 order-lg-2 order-3">
+                <div class="black-select" style="width:200px;">
+                    <select>
+                        <option value="0">Select Chapter:</option>
+                        <option value="1">Chapter 1</option>
+                        <option value="2">Chapter 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12 order-lg-3 order-4">
+                <div class="black-select" style="width:200px;">
+                    <select>
+                        <option value="0">Select Page:</option>
+                        <option value="1">Page 1</option>
+                        <option value="2">Page 2</option>
+                        <option value="3">Page 3</option>
+                        <option value="4">Page 4</option>
+                        <option value="5">Page 5</option>
+                        <option value="6">Page 6</option>
+                        <option value="7">Page 7</option>
+                        <option value="8">Page 8</option>
+                        <option value="9">Page 9</option>
+                        <option value="10">Page 10</option>
+                        <option value="11">Page 11</option>
+                        <option value="12">Page 12</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12 order-lg-4 order-1">
+                <div class="row no-gutters changeRight2Left">
+                    <div class="col-8">
+                        <i class="far fa-lightbulb fa-2x"></i>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        <i class="far fa-moon fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row picture no-gutters">
+            <div class="col-1 row pre-block no-gutters">
+                <a href="#" class="pre  align-items-center">
+                    <div class="col text-center">
+                        <i class="fas fa-chevron-left i-size"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="col-10 text-center">
+                <img src="./image/storyboard-1.png" alt="page1">
+            </div>
+
+            <div class="col-1 row next-block  no-gutters">
+                <a href="#" class="next align-items-center">
+                    <div class="col text-center">
+                        <i class="fas fa-chevron-right i-size"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row no-gutters scrollbar">
+            <div class="col">
+                <div class="thumb">
+                    <div class="thumb-selected">
+                        <span>1</span>
+                        <a href="#">
+                            <img src="./image/storyboard-1.png" alt="1">
+                        </a>
+                    </div>
+                    <div>
+                        <span>2</span>
+                        <a href="#">
+                            <img src="./image/storyboard-2.png" alt="2">
+                        </a>
+                    </div>
+                    <div>
+                        <span>3</span>
+                        <a href="#">
+                            <img src="./image/storyboard-3.png" alt="3">
+                        </a>
+                    </div>
+                    <div>
+                        <span>4</span>
+                        <a href="#">
+                            <img src="./image/storyboard-4.png" alt="4">
+                        </a>
+                    </div>
+                    <div>
+                        <span>5</span>
+                        <a href="#">
+                            <img src="./image/storyboard-5.png" alt="5">
+                        </a>
+                    </div>
+                    <div>
+                        <span>6</span>
+                        <a href="#">
+                            <img src="./image/storyboard-6.png" alt="6">
+                        </a>
+                    </div>
+                    <div>
+                        <span>7</span>
+                        <a href="#">
+                            <img src="./image/storyboard-7.png" alt="7">
+                        </a>
+                    </div>
+                    <div>
+                        <span>8</span>
+                        <a href="#">
+                            <img src="./image/storyboard-8.png" alt="8">
+                        </a>
+                    </div>
+                    <div>
+                        <span>9</span>
+                        <a href="#">
+                            <img src="./image/storyboard-9.png" alt="9">
+                        </a>
+                    </div>
+                    <div>
+                        <span>10</span>
+                        <a href="#">
+                            <img src="./image/storyboard-10.png" alt="10">
+                        </a>
+                    </div>
+                    <div>
+                        <span>11</span>
+                        <a href="#">
+                            <img src="./image/storyboard-11.png" alt="11">
+                        </a>
+                    </div>
+                    <div>
+                        <span>12</span>
+                        <a href="#">
+                            <img src="./image/storyboard-12.png" alt="12">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="height: 150px;"></footer>
+    <script src="customSelect.js"></script>
+
+</body>
+
+</html>
