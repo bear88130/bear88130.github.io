@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="all.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="all.js"></script>
+
+</head>
+
+<body>
+    <div id='page1' class="full">
+        <div class="square"></div>
+        <div class="circle"></div>
+        <div class="triangle"></div>
+        <div class="mirror-triangle"></div>
+        <h1 class="title">GEOMETRY PERSON</h1>
+        <h3 class="subtitle">find your core personality type in shapes!</h3>
+    </div>
+    <div id='page2' class="full" style="display: none">
+        <div class="questionBlcok">
+            <div class="col-12 number text-left">Q1</div>
+            <div class="col-12 question">If one day you get a gift that can change the rule of the world, which ability will you choose? </div>
+            <div class="col-12 ps">Choose the answer appeared in your mind instantly</div>
+
+            <div class="col-12">
+                <button class="choice-button">Destroy all humans in the world</button>
+            </div>
+
+            <div class="col-12">
+                <button class="choice-button">Make the war never happened</button>
+            </div>
+
+            <div class="col-12">
+                <button class="choice-button">You won’t get old and live forever</button>
+            </div>
+
+        </div>
+        <div class="animationBlcok">
+            <div class="circle-object"></div>
+            <div class="square-object"></div>
+            <div class="triangle-object"></div>
+        </div>
+    </div>
+</body>
+
+<script>
+    setTimeout(() => {
+        let page1 = document.getElementById('page1');
+        let page2 = document.getElementById('page2');
+        page1.style.display = 'none';
+        page2.style.display = 'flex';
+    }, 8000);
+</script>
+
+</html>
