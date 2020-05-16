@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>html相片相機上傳</title>
+</head>
+
+<body>
+    <img id="image" src="" alt="" srcset=""  width="250">
+    <input id="file" type="file" accept="image/*" onchange="getImage()"/>網站是上傳圖片，行動裝置可以選擇相機或相簿上傳圖片
+    <button type="button" onclick="getImage()">送出</button>
+
+    <script>
+
+        function getImage() {
+            const file = document.getElementById("file").files.item(0);
+
+            const image = document.getElementById("image");
+            image.src = URL.createObjectURL(file);
+            image.width = 340;
+        }
+
+    </script>
+</body>
+
+</html>
