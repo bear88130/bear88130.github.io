@@ -1,0 +1,35 @@
+HTTrack3.49-2+htsswf+htsjava launched on Tue, 05 Mar 2024 15:56:06 at http://www.ttisuccessinsights.com.cn/ +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" http://www.ttisuccessinsights.com.cn/ -O1 "C:\My Websites\TTI" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+16:07:54	Warning: 	Retry after error -4 (Connect Error) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/cn/images/home/02.png (from www.ttisuccessinsights.com.cn/)
+16:07:57	Warning: 	Retry after error -4 (Connect Error) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/cn/images/home/service3.png (from www.ttisuccessinsights.com.cn/)
+16:08:30	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230717/248d28eea47fa517564329bfd685f7fd.png (from www.ttisuccessinsights.com.cn/)
+16:08:51	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230717/d443d2d09efec5d7860b658132ad031e.png (from www.ttisuccessinsights.com.cn/)
+16:08:59	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230717/b97db71e46eecf7542cac432fc8b2aa2.png (from www.ttisuccessinsights.com.cn/)
+16:09:45	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230717/9a59fc19f14ce7cbc4d045e3d46eddc1.png (from www.ttisuccessinsights.com.cn/)
+16:09:45	Warning: 	Retry after error -4 (Connect Error) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/cn/images/home/24.png (from www.ttisuccessinsights.com.cn/)
+16:09:48	Warning: 	Retry after error -4 (No data (connection closed)) at link www.ttisuccessinsights.com.cn/static/cn/images/home/25.png (from www.ttisuccessinsights.com.cn/)
+16:09:49	Warning: 	Retry after error -4 (No data (connection closed)) at link www.ttisuccessinsights.com.cn/static/cn/images/home/26.png (from www.ttisuccessinsights.com.cn/)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230717/4351bcb726b9fea4d1f4054c7eaafa17.png (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230717/7468ab3ff2f8ed32481b8dd513474e32.png (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230717/8638908c113b121bffec7d7b53a42f8a.png (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230717/58bfa7fdb84151575b5fbe375feed6e4.png (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230718/54605f30a6f728b425a80e9c4b370501.png (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230718/6550dba3eb6c819a239ae75b376ae4b4.jpg (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230718/d036776e0c867e4b653a28ad2066b89c.jpg (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230718/77d204c8aa77b8f5f53f54a7e6188f16.jpg (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230718/42771c4b96da14d4c559546b43797995.jpg (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230718/849840d6acff4eb6a3a35571384dc207.jpg (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:08	Error: 	"Not Found" (404) at link www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/uploads/20230718/51cb6258d0a909dd39881d051577eb3d.jpg (from www.ttisuccessinsights.com.cn/solve.html)
+16:10:26	Warning: 	Moved Temporarily for www.ttisuccessinsights.com.cn/static/cn/images/home/25.png
+16:10:26	Warning: 	Warning moved treated for www.ttisuccessinsights.com.cn/static/cn/images/home/25.png (real one is www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/cn/images/home/25.png)
+16:10:29	Warning: 	Moved Temporarily for www.ttisuccessinsights.com.cn/static/cn/images/home/26.png
+16:10:29	Warning: 	Warning moved treated for www.ttisuccessinsights.com.cn/static/cn/images/home/26.png (real one is www-x-ttisuccessinsights-x-com-x-cn.img.addlink.cn/static/cn/images/home/26.png)
+
+HTTrack Website Copier/3.49-2 mirror complete in 14 minutes 30 seconds : 333 links scanned, 310 files written (19612267 bytes overall) [19171826 bytes received at 22036 bytes/sec], 1064211 bytes transferred using HTTP compression in 54 files, ratio 25%, 1.6 requests per connection
+(15 errors, 9 warnings, 0 messages)
