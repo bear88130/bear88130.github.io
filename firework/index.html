@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Chrysanthemum Fireworks</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="fireworksCanvas"></canvas>
+    <div class="controls">
+        <button id="launchBtn">Launch Firework</button>
+        <div class="settings">
+            <label>
+                Particle Count:
+                <input type="range" id="particleCount" min="300" max="2000" value="800" step="100">
+                <span id="particleCountValue">800</span>
+            </label>
+            <label>
+                Shell Size:
+                <input type="range" id="shellSize" min="5" max="15" value="8" step="1">
+                <span id="shellSizeValue">8</span>
+            </label>
+            <label>
+                Color Transitions:
+                <input type="range" id="colorTransitions" min="3" max="10" value="6" step="1">
+                <span id="colorTransitionsValue">6</span>
+            </label>
+        </div>
+    </div>
+    <script src="fireworks.js"></script>
+</body>
+</html> 
