@@ -1,0 +1,114 @@
+{
+  "configVersion": 1,
+  "timestamp": 1755953927978,
+  "index": "/badminton-scorer/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/badminton-scorer/chunk-5PK5THYQ.js",
+        "/badminton-scorer/chunk-CGXISRVL.js",
+        "/badminton-scorer/favicon.ico",
+        "/badminton-scorer/index.html",
+        "/badminton-scorer/main-DTXQBV26.js",
+        "/badminton-scorer/manifest.webmanifest",
+        "/badminton-scorer/polyfills-B6TNHZQ6.js",
+        "/badminton-scorer/styles-HOZIEFZV.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/badminton-scorer/icons/icon-128x128.png",
+        "/badminton-scorer/icons/icon-144x144.png",
+        "/badminton-scorer/icons/icon-152x152.png",
+        "/badminton-scorer/icons/icon-192x192.png",
+        "/badminton-scorer/icons/icon-384x384.png",
+        "/badminton-scorer/icons/icon-512x512.png",
+        "/badminton-scorer/icons/icon-72x72.png",
+        "/badminton-scorer/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-performance",
+      "patterns": [
+        "\\/api\\/games\\/.*",
+        "\\/api\\/scores\\/.*"
+      ],
+      "strategy": "performance",
+      "maxSize": 100,
+      "maxAge": 86400000,
+      "timeoutMs": 10000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    },
+    {
+      "name": "api-freshness",
+      "patterns": [
+        "\\/api\\/settings\\/.*",
+        "\\/api\\/backup\\/.*"
+      ],
+      "strategy": "freshness",
+      "maxSize": 50,
+      "maxAge": 3600000,
+      "timeoutMs": 5000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/badminton-scorer/chunk-5PK5THYQ.js": "ae5f9bc240cf2ddd99f4ff627eede6317c9f635f",
+    "/badminton-scorer/chunk-CGXISRVL.js": "2ba10801efe1d5bf6638758a269b8fa3770dc4b4",
+    "/badminton-scorer/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/badminton-scorer/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/badminton-scorer/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/badminton-scorer/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/badminton-scorer/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/badminton-scorer/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/badminton-scorer/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/badminton-scorer/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/badminton-scorer/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/badminton-scorer/index.html": "38b3525ea053c74e8646260d1c61e80f594a1001",
+    "/badminton-scorer/main-DTXQBV26.js": "b56851e42822f6ecdfa4bd2cf642e0d09be03a2c",
+    "/badminton-scorer/manifest.webmanifest": "433c4f35f1d513cd55c5d78aa3b56983a3d8b0ae",
+    "/badminton-scorer/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
+    "/badminton-scorer/styles-HOZIEFZV.css": "7896b980f950743a141c01ad340bffc8dba42146"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
