@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1755953927978,
+  "timestamp": 1756029873589,
   "index": "/badminton-scorer/index.html",
   "assetGroups": [
     {
@@ -15,10 +15,10 @@
         "/badminton-scorer/chunk-CGXISRVL.js",
         "/badminton-scorer/favicon.ico",
         "/badminton-scorer/index.html",
-        "/badminton-scorer/main-DTXQBV26.js",
+        "/badminton-scorer/main-ROVANP2G.js",
         "/badminton-scorer/manifest.webmanifest",
         "/badminton-scorer/polyfills-B6TNHZQ6.js",
-        "/badminton-scorer/styles-HOZIEFZV.css"
+        "/badminton-scorer/styles-F4LG5RV4.css"
       ],
       "patterns": []
     },
@@ -86,11 +86,11 @@
     "/badminton-scorer/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "/badminton-scorer/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "/badminton-scorer/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/badminton-scorer/index.html": "38b3525ea053c74e8646260d1c61e80f594a1001",
-    "/badminton-scorer/main-DTXQBV26.js": "b56851e42822f6ecdfa4bd2cf642e0d09be03a2c",
+    "/badminton-scorer/index.html": "20da5dc42c8c8f5c033972f4d448166d3f09363b",
+    "/badminton-scorer/main-ROVANP2G.js": "08c9062f9831c9c18fc23b736bc081c6f015960d",
     "/badminton-scorer/manifest.webmanifest": "433c4f35f1d513cd55c5d78aa3b56983a3d8b0ae",
     "/badminton-scorer/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
-    "/badminton-scorer/styles-HOZIEFZV.css": "7896b980f950743a141c01ad340bffc8dba42146"
+    "/badminton-scorer/styles-F4LG5RV4.css": "d0d9061e44afa130fcd7d7c4ae08152a134a18df"
   },
   "navigationUrls": [
     {
