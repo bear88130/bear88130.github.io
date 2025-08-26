@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1756038556211,
+  "timestamp": 1756215420693,
   "index": "/badminton-scorer/index.html",
   "assetGroups": [
     {
@@ -86,7 +86,7 @@
     "/badminton-scorer/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "/badminton-scorer/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "/badminton-scorer/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/badminton-scorer/index.html": "03acb2c19635686edcf707df864f38b86f8964c3",
+    "/badminton-scorer/index.html": "44cae32a121819a333de97414361a95cb3cc56a9",
     "/badminton-scorer/main-2OZLVLEY.js": "34a9208eb7969aaf5d589378de6585d568dcdaf7",
     "/badminton-scorer/manifest.webmanifest": "433c4f35f1d513cd55c5d78aa3b56983a3d8b0ae",
     "/badminton-scorer/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
