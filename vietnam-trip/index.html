@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>星級中越5日 · 越南旅遊手冊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#faf3e8;--warm:#fff9f2;
+  --teal-dark:#0c3d4a;--teal:#1a5f72;
+  --gold:#c97a0a;--coral:#c0533a;
+  --text:#2a1f18;--mid:#5a4a3e;--muted:#8a7868;
+  --shadow:rgba(20,10,5,.12);
+  --c-prep:#1a5f72;--c-d1:#c97a0a;--c-d2:#0a8a9a;
+  --c-d3:#5a4a8a;--c-d4:#a03020;--c-d5:#b84070;
+  --nav-h:60px;--r:14px;
+  --safe-bot:env(safe-area-inset-bottom,0px);
+}
+html,body{height:100%;overflow:hidden;font-family:'Noto Serif TC',Georgia,serif;background:#111;color:var(--text)}
+
+/* ── SCREENS ── */
+.screen{
+  position:fixed;inset:0 0 calc(var(--nav-h) + var(--safe-bot)) 0;
+  overflow-y:auto;overflow-x:hidden;
+  background:var(--cream);
+  transform:translateX(100%);
+  will-change:transform;
+  -webkit-overflow-scrolling:touch;
+  z-index:10;
+}
+.screen.active{transform:translateX(0)}
+.screen.prev{transform:translateX(-28%)}
+/* Transitions applied via JS to allow instant repositioning */
+.screen.animating{transition:transform .3s cubic-bezier(.4,0,.2,1)}
+
+/* ── BOTTOM NAV ── */
+.nav{
+  position:fixed;bottom:0;left:0;right:0;
+  height:calc(var(--nav-h) + var(--safe-bot));
+  padding-bottom:var(--safe-bot);
+  background:rgba(255,252,248,.97);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-top:1px solid rgba(180,160,140,.18);
+  display:flex;align-items:stretch;
+  z-index:100;box-shadow:0 -2px 14px rgba(0,0,0,.07);
+}
+.ni{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;background:none;border:none;cursor:pointer;
+  color:var(--muted);font-family:inherit;font-size:.58rem;letter-spacing:.03em;
+  text-decoration:none;-webkit-tap-highlight-color:transparent;padding:.2rem .05rem;
+  transition:color .18s;
+  position:relative;
+}
+.ni.active{color:var(--teal)}
+.ni-icon{font-size:1.18rem;line-height:1;transition:transform .2s}
+.ni.active .ni-icon{transform:scale(1.12)}
+.ni-bar{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  height:2.5px;width:0;border-radius:0 0 3px 3px;
+  background:currentColor;transition:width .25s;
+}
+.ni.active .ni-bar{width:26px}
+
+/* ── PREP SCREEN ── */
+/* HERO */
+.hero{position:relative;min-height:85svh;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 1.5rem 1.5rem;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.08) 0%,rgba(12,35,42,.9) 100%),url('./36573.png') center/cover no-repeat;z-index:0}
+.hero-cnt{position:relative;z-index:1;color:#fff}
+.badge{display:inline-block;background:var(--gold);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.18em;padding:.22rem .7rem;border-radius:100px;margin-bottom:.6rem;text-transform:uppercase}
+.hero h1{font-family:'Playfair Display','Noto Serif TC',serif;font-size:clamp(1.85rem,7vw,2.7rem);font-weight:700;line-height:1.1;margin-bottom:.4rem}
+.hero-sub{font-size:.8rem;opacity:.82;letter-spacing:.07em;margin-bottom:.85rem}
+.hero-dates{display:flex;align-items:center;gap:.6rem;font-size:.92rem;font-weight:300;opacity:.9;margin-bottom:.85rem}
+.hero-dates .sep{opacity:.4}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);padding:.28rem .62rem;border-radius:8px;font-size:.72rem;color:#fff}
+.hero-hint{position:relative;z-index:1;text-align:center;color:rgba(255,255,255,.45);font-size:.68rem;letter-spacing:.1em;margin-top:1rem;animation:bob 2.2s infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* DAY OVERVIEW STRIP */
+.strip-wrap{background:#fff;border-bottom:1px solid #ede8e0;padding:.7rem 0 .55rem}
+.strip-label{padding:0 1rem;font-size:.62rem;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:.45rem}
+.strip{display:flex;gap:.55rem;padding:0 1rem;overflow-x:auto;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.mini{flex-shrink:0;background:var(--cream);border-radius:10px;padding:.58rem .75rem;min-width:108px;cursor:pointer;transition:transform .15s;-webkit-tap-highlight-color:transparent}
+.mini:active{transform:scale(.95)}
+.mini-day{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.18rem}
+.mini-title{font-size:.76rem;font-weight:600;line-height:1.3}
+.mini-spots{font-size:.66rem;color:var(--muted);margin-top:.18rem;line-height:1.4}
+
+/* ── DAY SCREENS ── */
+.day-hero{position:relative;height:31svh;min-height:148px;overflow:hidden;flex-shrink:0}
+.day-hero img{width:100%;height:100%;object-fit:cover;display:block}
+.day-hero-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,.65) 100%)}
+.day-hero-cnt{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.4rem 1.3rem;color:#fff}
+.day-big-num{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:5.5rem;font-weight:700;line-height:1;
+  position:absolute;right:1.2rem;bottom:.4rem;
+  opacity:.18;color:#fff;pointer-events:none;
+}
+.day-tag{font-size:.63rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;opacity:.82;margin-bottom:.25rem}
+.day-hero-cnt h1{font-family:'Playfair Display','Noto Serif TC',serif;font-size:clamp(1.3rem,5.5vw,1.7rem);font-weight:700;line-height:1.2;margin-bottom:.3rem}
+.day-hero-cnt p{font-size:.76rem;opacity:.82;line-height:1.5}
+
+/* ── SHARED CARDS ── */
+.cards{padding:.85rem .85rem 1.5rem;display:flex;flex-direction:column;gap:.75rem}
+.card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 2px 10px var(--shadow)}
+.card-hd{padding:.85rem 1.05rem;display:flex;align-items:center;gap:.62rem;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.card-ico{width:33px;height:33px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.card-ttl{font-size:.88rem;font-weight:600;flex:1;line-height:1.3}
+.chev{width:14px;height:14px;color:var(--muted);flex-shrink:0;transition:transform .22s}
+.card.open .chev{transform:rotate(180deg)}
+.card-bd{padding:0 1.05rem;max-height:0;overflow:hidden;transition:max-height .32s ease,padding .32s ease}
+.card.open .card-bd,.card.always .card-bd{max-height:2200px;padding:0 1.05rem 1.05rem}
+.card.always .chev{display:none}
+
+/* INFO TABLE */
+.it{width:100%;border-collapse:collapse;font-size:.8rem}
+.it tr:not(:last-child) td{border-bottom:1px solid #f0ebe3}
+.it td{padding:.5rem 0;vertical-align:top}
+.it td:first-child{color:var(--muted);width:38%;padding-right:.4rem;font-size:.76rem}
+.it td:last-child{font-weight:500}
+
+/* BOXES */
+.hi{background:linear-gradient(135deg,#fdf5e0,#faeacc);border:1px solid #e8d090;border-radius:10px;padding:.75rem;margin-bottom:.6rem;font-size:.8rem}
+.hi strong{display:block;margin-bottom:.22rem;color:#7a5000}
+.alert{background:#fff0ed;border:1px solid #f0b0a0;border-radius:10px;padding:.75rem;margin-bottom:.6rem;font-size:.78rem;line-height:1.65}
+.alert strong{display:block;color:#b83828;margin-bottom:.2rem}
+.tip{background:#e4f3f7;border:1px solid #9ed4df;border-radius:10px;padding:.75rem;margin-bottom:.6rem;font-size:.78rem;line-height:1.65}
+.tip strong{display:block;color:#1a6070;margin-bottom:.2rem}
+.rate-box{background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;border-radius:12px;padding:.85rem;text-align:center;margin-bottom:.6rem}
+.rate-box .r{font-size:1.4rem;font-weight:700}.rate-box .l{font-size:.7rem;opacity:.8;margin-top:.15rem}
+.fl{background:linear-gradient(135deg,#0c2840,#1a4060);color:#fff;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.6rem}
+.fl-row{display:flex;align-items:center;gap:.55rem}
+.fl-ap{text-align:center;flex:1}
+.fl-ap .code{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700}
+.fl-ap .name{font-size:.62rem;opacity:.7}
+.fl-mid{flex:2;display:flex;flex-direction:column;align-items:center;gap:3px}
+.fl-mid .al{font-size:.65rem;opacity:.8}
+.fl-mid .arr{display:flex;align-items:center;width:100%}
+.fl-mid .arr::before,.fl-mid .arr::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.35)}
+.fl-mid .arr span{font-size:.8rem;padding:0 3px}
+
+/* LUGGAGE */
+.lg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.42rem;margin:.45rem 0}
+.lg-item{background:var(--cream);border-radius:10px;padding:.62rem .38rem;text-align:center}
+.lg-item .i{font-size:1.3rem;margin-bottom:.22rem}
+.lg-item .t{font-size:.63rem;color:var(--muted);margin-bottom:.18rem;font-weight:500}
+.lg-item .s{font-size:.65rem;font-weight:600}.lg-item .w{font-size:.76rem;font-weight:700;color:var(--teal)}
+
+/* CHECKLIST */
+.cl-group{margin-bottom:.6rem}
+.cl-gt{font-weight:600;font-size:.76rem;color:var(--mid);margin-bottom:.32rem}
+.cl-item{display:flex;align-items:center;gap:.42rem;padding:.25rem 0;font-size:.8rem}
+.cl-item::before{content:'';width:14px;height:14px;border:1.5px solid #c8bfb5;border-radius:4px;flex-shrink:0}
+
+/* TIMELINE */
+.tl{padding:.35rem 0}
+.tl-item{display:grid;grid-template-columns:21px 1fr;gap:.62rem;padding-bottom:.85rem;position:relative}
+.tl-item:not(:last-child)::before{content:'';position:absolute;left:9px;top:21px;bottom:0;width:2px;background:#e8ddd0}
+.tl-dot{width:21px;height:21px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.58rem;color:#fff;font-weight:700;margin-top:1px;z-index:1;flex-shrink:0}
+.tl-cnt strong{display:block;font-size:.86rem;margin-bottom:.16rem}
+.tl-cnt p{color:var(--muted);line-height:1.55;font-size:.76rem}
+
+/* TIP ROWS */
+.tr{display:flex;gap:.42rem;align-items:flex-start;padding:.32rem 0;font-size:.79rem;line-height:1.55}
+.tr::before{content:attr(data-i);flex-shrink:0;font-size:.86rem}
+
+/* UTILS */
+.dv{height:1px;background:#ede8e0;margin:.6rem 0}
+.mt1{margin-top:.45rem}.mt2{margin-top:.7rem}
+.fw6{font-weight:600}.sm{font-size:.79rem}.muted{color:var(--muted)}
+
+/* PREP section headings */
+.prep-sec{padding:.9rem .85rem .35rem;font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ══ SCREEN: 準備 ══ -->
+<div class="screen active" id="screen-prep">
+
+  <header style="background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:1rem 1.2rem .9rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.55rem">
+      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#fff;line-height:1.1">星級中越五日</div>
+      <div style="color:rgba(255,255,255,.85);font-size:.75rem">04/18（六）— 04/22（三）</div>
+    </div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:.25rem .6rem;font-size:.72rem;color:#fff">👤 旅社代表：小高</span>
+      <span style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:.25rem .6rem;font-size:.72rem;color:#fff">導遊：阿德（<span onclick="this.textContent='0961-050-717';this.style.cursor='default'" style="cursor:pointer;text-decoration:underline dotted">0961-050-***</span>）</span>
+    </div>
+  </header>
+
+  <!-- OVERVIEW STRIP -->
+  <div class="strip-wrap">
+    <div class="strip-label">點擊切換行程天</div>
+    <div class="strip">
+      <div class="mini" onclick="nav('d1')"><div class="mini-day" style="color:var(--c-d1)">D1</div><div class="mini-title">峴港抵達日</div><div class="mini-spots">龍橋・會安・水燈</div></div>
+      <div class="mini" onclick="nav('d2')"><div class="mini-day" style="color:var(--c-d2)">D2</div><div class="mini-title">迦南島生態遊</div><div class="mini-spots">竹籃船・靈應寺</div></div>
+      <div class="mini" onclick="nav('d3')"><div class="mini-day" style="color:var(--c-d3)">D3</div><div class="mini-title">巴拿山黃金橋</div><div class="mini-spots">纜車・Fantasy Park</div></div>
+      <div class="mini" onclick="nav('d4')"><div class="mini-day" style="color:var(--c-d4)">D4</div><div class="mini-title">聖地巡禮</div><div class="mini-spots">美山・五行山・海灘</div></div>
+      <div class="mini" onclick="nav('d5')"><div class="mini-day" style="color:var(--c-d5)">D5</div><div class="mini-title">採買賦歸</div><div class="mini-spots">粉紅教堂・漢江市場</div></div>
+    </div>
+  </div>
+
+  <!-- PREP CARDS -->
+  <div class="prep-sec">匯率 & 實用資訊</div>
+  <div class="cards" style="padding-top:0">
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">💰</div><div class="card-ttl">匯率・電壓・小費建議</div></div>
+      <div class="card-bd">
+        <div class="rate-box"><div class="r">1 TWD ≈ 835 VND</div><div class="l">建議帶台幣給導遊換匯，剩餘越南盾可按原匯率換回</div></div>
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.65rem">
+          <div style="flex:1">
+            <div style="font-size:.65rem;color:var(--muted);margin-bottom:.3rem;font-weight:600">越南盾 VND</div>
+            <input id="vnd" type="number" inputmode="decimal" placeholder="835" oninput="toTWD(this.value)" style="width:100%;padding:.6rem .75rem;border:1.5px solid #ddd;border-radius:9px;font-size:.95rem;font-family:inherit;outline:none;background:#fff;color:var(--text)">
+          </div>
+          <div style="font-size:1rem;color:var(--muted);padding-top:1.2rem">⇄</div>
+          <div style="flex:1">
+            <div style="font-size:.65rem;color:var(--muted);margin-bottom:.3rem;font-weight:600">台幣 TWD</div>
+            <input id="twd" type="number" inputmode="decimal" placeholder="1" oninput="toVND(this.value)" style="width:100%;padding:.6rem .75rem;border:1.5px solid #ddd;border-radius:9px;font-size:.95rem;font-family:inherit;outline:none;background:#fff;color:var(--text)">
+          </div>
+        </div>
+        <p class="fw6 sm" style="margin-bottom:.38rem">電壓 & 插座</p>
+        <table class="it">
+          <tr><td>電壓</td><td>220V（C型雙圓孔 / A型雙扁孔）</td></tr>
+          <tr><td>手機 / 平板</td><td>充電器通常可直接使用</td></tr>
+          <tr><td>吹風機 / 電棒捲</td><td>⚠️ 需自備變壓器，<strong>不可接延長線</strong>（恐爆炸）</td></tr>
+        </table>
+        <div class="dv"></div>
+        <p class="fw6 sm" style="margin-bottom:.38rem">網路</p>
+        <div class="tr" data-i="📶">建議自行辦理 <strong>eSIM</strong> 或國際漫遊，當地網速穩定</div>
+        <div class="dv"></div>
+        <p class="fw6 sm" style="margin-bottom:.38rem">小費速查</p>
+        <table class="it">
+          <tr><td>飯店床頭</td><td>自願制，不付也會正常打掃</td></tr>
+          <tr><td>飯店行李員</td><td>VND 20,000–50,000 / 件</td></tr>
+          <tr><td>竹籃船夫</td><td>VND 10,000–50,000 / 人</td></tr>
+          <tr><td>按摩 / SPA</td><td>VND 50,000–100,000 / 次</td></tr>
+        </table>
+        <button onclick="nav('tips')" style="display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;margin-top:.65rem;padding:.65rem;background:var(--cream);border:1.5px solid #d0c8bc;border-radius:9px;font-size:.8rem;font-weight:600;color:var(--mid);font-family:inherit;cursor:pointer">
+          查看完整小費說明 →
+        </button>
+        <div class="dv"></div>
+        <p class="fw6 sm" style="margin-bottom:.38rem">飯店禁帶入房</p>
+        <div class="alert" style="margin-bottom:0">
+          <strong>🚫 榴槤 & 山竹禁止帶入房間</strong>
+          榴槤氣味重、山竹汁液易染色床單，違者可能須支付高額賠償費用。
+        </div>
+        <div class="dv"></div>
+        <p class="fw6 sm" style="margin-bottom:.38rem">自費項目</p>
+        <div class="tr" data-i="💆">全身精油按摩 90 分鐘 — NT$1,000 / 人</div>
+        <div class="tr" data-i="💇">越式洗頭 — NT$1,000 / 人</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prep-sec">出發資訊</div>
+  <div class="cards" style="padding-top:0">
+
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">📍</div><div class="card-ttl">出發集合資訊</div></div>
+      <div class="card-bd">
+        <div class="hi"><strong>⏰ 集合時間</strong>2026 年 04 月 18 日（六）上午 <strong>06:45</strong></div>
+        <div style="background:#fff3cd;border:2px solid #f0a500;border-radius:10px;padding:.7rem 1rem;margin:.5rem 0 .6rem;text-align:center;font-size:1rem;font-weight:700;color:#7a4e00;letter-spacing:.04em">
+          📍 集合地點：桃園國際機場<br><span style="font-size:1.3rem">第二航廈</span>
+        </div>
+        <p class="fw6 sm" style="margin-bottom:.38rem">集合方式</p>
+        <table class="it">
+          <tr><td>自行前往</td><td>桃園機場<strong>第二航廈</strong> 06:45</td></tr>
+          <tr><td>搭車前往</td><td>板橋車站集合（約出發前 3.5 小時，時間待確認）</td></tr>
+        </table>
+        <div class="tip mt1" style="margin-bottom:.5rem">
+          <strong>🚌 接駁車資訊（板橋 ↔ 桃園機場）</strong>
+          <table class="it" style="margin-top:.35rem">
+            <tr><td>車號</td><td><strong>KAB-<span onclick="this.textContent='6893';this.style.cursor='default'" style="cursor:pointer;text-decoration:underline dotted">****</span></strong></td></tr>
+            <tr><td>司機</td><td>張先生</td></tr>
+            <tr><td>聯絡電話</td><td><strong onclick="this.textContent='0989-638-278';this.style.cursor='default'" style="cursor:pointer;text-decoration:underline dotted">0989-638-***</strong></td></tr>
+          </table>
+        </div>
+        <div class="dv"></div>
+        <table class="it">
+          <tr><td>航空公司</td><td>長榮航空</td></tr>
+          <tr><td>旅行社代表</td><td>小高</td></tr>
+          <tr><td>當地導遊</td><td>阿德</td></tr>
+          <tr><td>緊急聯絡</td><td><strong onclick="this.textContent='0961-050-717';this.style.cursor='default'" style="cursor:pointer;text-decoration:underline dotted">0961-050-***</strong></td></tr>
+          <tr><td>旅行社</td><td>福洋國際旅行社</td></tr>
+          <tr><td>旅行社電話</td><td>02-2560-2933 / 02-6608-0777</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">🏨</div><div class="card-ttl">全程住宿 · NALOD Hotel 5★</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>飯店名稱</td><td><strong>NALOD Hotel</strong></td></tr>
+          <tr><td>星級</td><td>⭐⭐⭐⭐⭐ 五星</td></tr>
+          <tr><td>住宿晚數</td><td>4 晚全程連住，無需換飯店</td></tr>
+          <tr><td>飯店電話</td><td>+84 236 3913 999</td></tr>
+          <tr><td>位置特色</td><td>鄰近市區與美溪絕美海灘</td></tr>
+        </table>
+        <div class="tip mt1"><strong>💡 輕旅行貼士</strong>全程住同一飯店，只需打開一次行李，輕鬆享受旅程！</div>
+        <a href="https://maps.app.goo.gl/dUVtBFg2C8nkdjwH7" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.65rem;padding:.7rem;background:var(--teal);color:#fff;border-radius:10px;font-size:.82rem;font-weight:600;text-decoration:none;-webkit-tap-highlight-color:transparent">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          在 Google Maps 開啟飯店位置
+        </a>
+        <div style="margin-top:.5rem;border-radius:10px;overflow:hidden;height:200px">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.872481011733!2d108.24208127576023!3d16.07210573935973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31421784755cbe37%3A0x636c2ed29ade4905!2sThe%20Nalod%20Da%20Nang!5e0!3m2!1szh-TW!2stw!4v1776421496846!5m2!1szh-TW!2stw" width="100%" height="200" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="prep-sec">行李 & 規定</div>
+  <div class="cards" style="padding-top:0">
+
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">🧳</div><div class="card-ttl">長榮航空行李規定</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><th>類型</th><th>尺寸限制</th><th>重量</th><th>備註</th></tr>
+          <tr><td>🧳 託運行李</td><td>三邊和 ≤ 158cm</td><td>≤ 23kg</td><td>免費 1 件；超件／超重依規加收費用</td></tr>
+          <tr><td>💼 手提行李</td><td>23×36×56 cm<br>三邊和 ≤ 115cm</td><td>≤ 7kg</td><td>置頂部行李廂</td></tr>
+          <tr><td>👜 隨身小包</td><td>10×40×30 cm<br>三邊和 ≤ 80cm</td><td>－</td><td>須放前座椅下或置物櫃</td></tr>
+        </table>
+        <div class="alert"><strong>⚠️ 出發前三件事</strong>① 清除舊行李條　② 確認行李上鎖　③ 掛好團體行李牌</div>
+      </div>
+    </div>
+
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">✅</div><div class="card-ttl">行李打包清單</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="cl-group"><div class="cl-gt">🪪 重要證件</div><div class="cl-item">護照</div><div class="cl-item">電子簽證</div><div class="cl-item">機票（電子/紙本）</div><div class="cl-item">信用卡</div><div class="cl-item">外幣（美金／越南盾）</div><div class="cl-item">旅遊不便險</div></div>
+        <div class="cl-group"><div class="cl-gt">👕 衣物類</div><div class="cl-item">換洗衣服（短袖為主）</div><div class="cl-item">泳裝</div><div class="cl-item">拖鞋</div><div class="cl-item">防曬外套</div></div>
+        <div class="cl-group"><div class="cl-gt">📱 3C 物品</div><div class="cl-item">手機 + 充電器</div><div class="cl-item">行動電源</div><div class="cl-item">萬用插頭轉接器</div><div class="cl-item">自拍棒</div></div>
+        <div class="cl-group"><div class="cl-gt">🧴 日常用品</div><div class="cl-item">盥洗用品（個人慣用品）</div><div class="cl-item">防曬油 SPF50+</div><div class="cl-item">防蚊液</div><div class="cl-item">消炎 / 止痛 / 退燒藥</div><div class="cl-item">腸胃藥</div><div class="cl-item">口罩</div><div class="cl-item">折疊傘</div><div class="cl-item">陽傘（美山聖地日曬強）</div></div>
+      </div>
+    </div>
+
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">☀️</div><div class="card-ttl">氣候 & 時差</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>季節</td><td>熱季（3月～8月）</td></tr>
+          <tr><td>氣溫</td><td>約 26～32°C，炎熱潮濕</td></tr>
+          <tr><td>巴拿山氣溫</td><td>海拔較高，比市區涼，務必帶薄外套</td></tr>
+          <tr><td>穿著建議</td><td>夏季服裝為主，加強防曬</td></tr>
+          <tr><td>時差</td><td>越南比台灣 <strong>慢 1 小時</strong></td></tr>
+          <tr><td>換算</td><td>台灣 12:00 = 越南 11:00</td></tr>
+        </table>
+        <div class="tip mt1"><strong>🌂 提醒</strong>4月偶有驟雨，建議攜帶摺疊傘及防曬噴霧。</div>
+      </div>
+    </div>
+
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#fff0ed;color:var(--coral)">🛂</div><div class="card-ttl">海關 & 防疫須知</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <p class="fw6 sm" style="margin-bottom:.38rem">海關規定</p>
+        <div class="tr" data-i="💵">入境現金限額：≤ 美金 5,000 元等值</div>
+        <div class="tr" data-i="🇹🇼">台灣出入境：台幣 ≤ 10 萬、美金 ≤ 1 萬</div>
+        <div class="alert mt1"><strong>❌ 禁止攜帶</strong>生鮮水果、肉類不可入境台灣；水果刀請託運，不可隨身攜帶。</div>
+        <div class="tr" data-i="🔥">打火機請<strong>隨身攜帶</strong>，<strong>不可</strong>託運</div>
+        <div class="dv"></div>
+        <p class="fw6 sm" style="margin-bottom:.38rem">防疫安全</p>
+        <div class="tr" data-i="😷">自備口罩、防蚊液、乾洗手液</div>
+        <div class="tr" data-i="🍳">吃熟食、喝瓶裝水，勤洗手</div>
+        <div class="tr" data-i="🐦">不接觸禽鳥、犬貓及野生動物</div>
+        <div class="alert mt1"><strong>🏥 返國後健康監測</strong>返台後 21 天內若有不適，請就醫並告知旅遊史</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prep-sec">餐飲 & 飲食須知</div>
+  <div class="cards" style="padding-top:0">
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">🍽️</div><div class="card-ttl">餐飲規劃 & 飲食注意</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="hi"><strong>⭐ 行程包含米其林餐點</strong>蘭夫人餐廳等兩餐米其林推薦，以及當地特色八層海鮮塔。</div>
+        <div class="dv"></div>
+        <p class="fw6 sm" style="margin-bottom:.38rem">飲食安全</p>
+        <div class="tr" data-i="🚰">⚠️ <strong>不可飲用生水</strong>，請飲用瓶裝水</div>
+        <div class="tr" data-i="🍕">路邊小吃（如越南披薩）建議<strong>第四天晚上</strong>再嘗試，避免水土不服影響前段行程</div>
+        <div class="tr" data-i="🍳">以熟食為主，避免生冷食物</div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="text-align:center;padding:1.5rem;font-size:.7rem;color:var(--muted);border-top:1px solid #ede8e0">
+    <p style="font-weight:600;margin-bottom:.18rem">福洋國際旅行社</p>
+    <p>02-2560-2933 / 02-6608-0777</p>
+    <p style="margin-top:.18rem;opacity:.6">www.travel168.com.tw</p>
+  </footer>
+</div>
+
+<!-- ══ SCREEN: TIPS ══ -->
+<div class="screen" id="screen-tips">
+  <div style="position:sticky;top:0;z-index:20;background:var(--teal-dark);padding:.75rem 1rem;display:flex;align-items:center;gap:.6rem">
+    <button onclick="nav('prep')" style="background:rgba(255,255,255,.15);border:none;border-radius:7px;padding:.3rem .7rem;color:#fff;font-size:.8rem;font-family:inherit;cursor:pointer">← 返回</button>
+    <span style="color:#fff;font-weight:600;font-size:.9rem">峴港小費完整說明</span>
+  </div>
+  <div class="cards" style="padding-top:.85rem">
+
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">💡</div><div class="card-ttl">小費基本觀念</div></div>
+      <div class="card-bd">
+        <p class="sm" style="line-height:1.75">峴港屬觀光城市，小費<strong>不強制但已很常見</strong>。給得「小額、到位、用紙鈔」最剛好。建議用紙鈔，<strong>不要硬幣</strong>（可能被視為施捨而失禮）。</p>
+        <div class="dv"></div>
+        <p class="fw6 sm" style="margin-bottom:.4rem">服務評等快速判斷尺</p>
+        <table class="it">
+          <tr><td>低於期待</td><td>VND 20,000</td></tr>
+          <tr><td>符合期待</td><td>VND 50,000</td></tr>
+          <tr><td>超出期待</td><td>VND 100,000+</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">🏨</div><div class="card-ttl">飯店相關</div></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>行李員</td><td>VND 20,000–50,000 / 件<br><span style="font-size:.72rem;color:var(--muted)">幫你提行李到房間時給</span></td></tr>
+          <tr><td>房務/床頭</td><td>VND 20,000–50,000 / 晚<br><span style="font-size:.72rem;color:var(--muted)">每天出門前放桌上或枕頭旁，自願制</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">🚣</div><div class="card-ttl">景點活動</div></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>竹籃船船夫</td><td>VND 10,000–50,000 / 人<br><span style="font-size:.72rem;color:var(--muted)">有互動、表演或幫你拍照可給高一點</span></td></tr>
+          <tr><td>私人導遊</td><td>VND 100,000–200,000 / 天</td></tr>
+          <tr><td>包車司機</td><td>VND 50,000–100,000 / 天<br><span style="font-size:.72rem;color:var(--muted)">跑巴拿山、會安、美山等一日遊</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">💆</div><div class="card-ttl">按摩 / SPA</div></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>按摩 / SPA</td><td>VND 50,000–100,000 / 次</td></tr>
+          <tr><td>越式洗頭</td><td>VND 50,000–100,000 / 次</td></tr>
+        </table>
+        <p class="sm muted mt1">直覺基準：60 分鐘約 60,000；90–100 分鐘約 100,000</p>
+      </div>
+    </div>
+
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">🍽️</div><div class="card-ttl">餐廳 & 交通</div></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>一般餐廳</td><td>多數不用<br><span style="font-size:.72rem;color:var(--muted)">若服務費已含在帳單內則不需另給</span></td></tr>
+          <tr><td>中高級餐廳</td><td>服務好且帳單未含服務費，可視情況加給</td></tr>
+          <tr><td>Grab / 計程車</td><td>通常不必給<br><span style="font-size:.72rem;color:var(--muted)">想表達謝意可小額湊整 VND 5,000–20,000</span></td></tr>
+        </table>
+        <div class="alert mt1"><strong>🚫 出海關不用給小費</strong>有旅遊整理明確提醒，出海關時不需給小費。</div>
+      </div>
+    </div>
+
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#fdf5e0;color:var(--gold)">📅</div><div class="card-ttl">每日小費預算參考</div></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>一般日</td><td>VND 50,000–150,000<br><span style="font-size:.72rem;color:var(--muted)">房務 + 零星服務</span></td></tr>
+          <tr><td>有按摩的日子</td><td>再加 VND 50,000–100,000</td></tr>
+          <tr><td>包車一日遊</td><td>再加司機 50,000–100,000<br>+ 導遊 100,000–200,000（若有）</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SCREEN: DAY 1 ══ -->
+<div class="screen" id="screen-d1">
+  <div class="day-hero">
+    <img src="./D1.png" alt="D1 會安古鎮">
+    <div class="day-hero-ov"></div>
+    <div class="day-big-num">01</div>
+    <div class="day-hero-cnt">
+      <div class="day-tag" style="color:rgba(255,200,100,.9)">Day 1 · 04/18（六）</div>
+      <h1>峴港抵達・龍橋・會安</h1>
+      <p>從台灣飛越南，夜遊世界文化遺產會安古鎮，施放祈福水燈</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#fdf0de;color:var(--c-d1)">🗺️</div><div class="card-ttl">D1 行程路線</div></div>
+      <div class="card-bd">
+        <div class="tl">
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d1)">✈</div><div class="tl-cnt"><strong>桃園機場出發</strong><p>集合第二航廈 06:45 · 起飛 <strong>09:45</strong></p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d1)">1</div><div class="tl-cnt"><strong>抵達峴港（Đà Nẵng）</strong><p>降落 <strong>11:35</strong>（飛行約 2h50m）· 辦理入境，前往 NALOD Hotel 安頓行李</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d1)">2</div><div class="tl-cnt"><strong>峴港龍橋（Dragon Bridge）</strong><p>全長 666 公尺，越南首座旋轉橋，夜間燈光璀璨映照漢江</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d1)">3</div><div class="tl-cnt"><strong>會安古鎮（Hội An）</strong><p>世界文化遺產，石板路、燈籠夜景如夢似幻</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d1)">✨</div><div class="tl-cnt"><strong>施放祈福水燈</strong><p>在古城河畔點燃燈籠放入水中，許下心願</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#fdf0de;color:var(--c-d1)">🌉</div><div class="card-ttl">峴港地標 · 龍橋</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>全長</td><td><strong>666 公尺</strong></td></tr>
+          <tr><td>造型</td><td>金龍騰空，橋身以龍身為造型</td></tr>
+          <tr><td>特色</td><td>越南首座旋轉橋，可開合讓船隻通過</td></tr>
+          <tr><td>最佳時段</td><td>夜間燈光璀璨，映照漢江（Han River）</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#fdf0de;color:var(--c-d1)">🏮</div><div class="card-ttl">會安古鎮（UNESCO 世界文化遺產）</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="hi"><strong>🌍 世界文化遺產</strong>中古時代中國、印度、日本的海上貿易交匯地，保存完好的古城建築群。</div>
+        <table class="it">
+          <tr><td>特色</td><td>古樸石板路、雕樑畫棟建築</td></tr>
+          <tr><td>亮點</td><td>各色燈籠掛滿街道，夜景如夢似幻</td></tr>
+          <tr><td>活動</td><td>施放祈福水燈，在河上許願</td></tr>
+          <tr><td>購物</td><td>手工藝品、燈籠、絲製品</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCREEN: DAY 2 ══ -->
+<div class="screen" id="screen-d2">
+  <div class="day-hero">
+    <img src="./D2.png" alt="D2 竹籃船">
+    <div class="day-hero-ov"></div>
+    <div class="day-big-num">02</div>
+    <div class="day-hero-cnt">
+      <div class="day-tag" style="color:rgba(130,230,240,.9)">Day 2 · 04/19（日）</div>
+      <h1>迦南島・竹籃船・靈應寺</h1>
+      <p>搭乘竹籃船穿越水椰林，遊覽山茶半島 68 公尺觀音聖像</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#ddf4f7;color:var(--c-d2)">🗺️</div><div class="card-ttl">D2 行程路線</div></div>
+      <div class="card-bd">
+        <div class="tl">
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d2)">1</div><div class="tl-cnt"><strong>著名竹籃碗公船體驗</strong><p>搭乘圓形竹籃船深入水椰林，漁夫高速旋轉翻騰，刺激過癮！⚠️ 易暈船者不建議參加旋轉環節</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d2)">2</div><div class="tl-cnt"><strong>釣螃蟹體驗</strong><p>於椰林水道中使用天然釣竿，體驗當地漁民生活樂趣</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d2)">3</div><div class="tl-cnt"><strong>山茶半島・靈應寺</strong><p>參拜 68 公尺高觀音像，俯瞰美溪沙灘壯麗全景</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#ddf4f7;color:var(--c-d2)">🚣</div><div class="card-ttl">竹籃船（碗公船）體驗</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <p class="sm" style="line-height:1.7;margin-bottom:.55rem">乘坐越南傳統圓形竹籃船（Thúng Chai），穿越茂密的水椰林水道。技術精湛的船夫以驚人技藝旋轉船身，刺激又有趣，是越南最獨特的旅遊體驗之一。</p>
+        <div class="tip"><strong>📸 拍攝貼士</strong>準備防水袋保護手機！船夫旋轉時浪花四濺，記得提前收好貴重物品。</div>
+        <div class="tr" data-i="💰">小費建議：VND 20,000 / 人</div>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#ddf4f7;color:var(--c-d2)">🙏</div><div class="card-ttl">山茶半島・靈應寺</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>地點</td><td>山茶半島（Sơn Trà Peninsula）</td></tr>
+          <tr><td>景點</td><td>靈應寺（Chùa Linh Ứng）</td></tr>
+          <tr><td>觀音像高度</td><td><strong>68 公尺</strong>，越南最高觀音像</td></tr>
+          <tr><td>俯瞰景色</td><td>美溪沙灘（Mỹ Khê Beach）全景</td></tr>
+          <tr><td>生態</td><td>原始森林，棲息珍稀動物及猴群</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCREEN: DAY 3 ══ -->
+<div class="screen" id="screen-d3">
+  <div class="day-hero">
+    <img src="./D3.png" alt="D3 巴拿山黃金橋">
+    <div class="day-hero-ov"></div>
+    <div class="day-big-num">03</div>
+    <div class="day-hero-cnt">
+      <div class="day-tag" style="color:rgba(200,180,255,.9)">Day 3 · 04/20（一）</div>
+      <h1>巴拿山・黃金橋・夢想樂園</h1>
+      <p>搭世界紀錄纜車登頂，走上巨人佛手托起的天空步道</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#eee8f5;color:var(--c-d3)">🗺️</div><div class="card-ttl">D3 行程路線</div></div>
+      <div class="card-bd">
+        <div class="tl">
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d3)">1</div><div class="tl-cnt"><strong>搭乘世界第一登山纜車</strong><p>全長 5,801 公尺，金氏世界紀錄，穿越雲霧壯觀無比</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d3)">2</div><div class="tl-cnt"><strong>巨人佛手黃金橋（Golden Bridge）</strong><p>TIME 評選 2018 年全球十大景點，150m 長天空步道</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d3)">3</div><div class="tl-cnt"><strong>法式山城漫遊</strong><p>探訪德貝洒窖、愛情花園、搭乘高山小火車；設有熱門 <strong>Pop Mart</strong> 商店</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d3)">4</div><div class="tl-cnt"><strong>Fantasy Park 夢想樂園</strong><p>室內主題樂園，一票到底，適合全家同樂</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#eee8f5;color:var(--c-d3)">🚡</div><div class="card-ttl">世界第一登山纜車</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="hi"><strong>🏆 金氏世界紀錄</strong>全程最長登山纜車，雲霧縹緲間穿梭而過，如夢似幻。</div>
+        <table class="it">
+          <tr><td>纜車全長</td><td><strong>5,801 公尺</strong>（金氏紀錄）</td></tr>
+          <tr><td>落差高度</td><td>1,290 公尺</td></tr>
+          <tr><td>評選</td><td>CNN 評選「世界最令人印象深刻的 10 條登山纜車」</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#eee8f5;color:var(--c-d3)">🌉</div><div class="card-ttl">黃金橋（Golden Bridge）</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="hi"><strong>⭐ TIME 雜誌 2018 全球十大景點</strong>由兩隻巨大苔蘚石雕手托起，橋身蜿蜒於雲霧山間，如行走天際。</div>
+        <table class="it">
+          <tr><td>橋長</td><td><strong>近 150 公尺</strong></td></tr>
+          <tr><td>特色</td><td>兩隻巨大苔蘚佛手托起橋身，造型絕無僅有</td></tr>
+          <tr><td>最佳拍攝</td><td>清晨或日出時分，雲霧最為壯觀</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#eee8f5;color:var(--c-d3)">🎡</div><div class="card-ttl">法式城堡 & Fantasy Park</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="tr" data-i="🏰">法式古堡建築群 & 婆納法國山城</div>
+        <div class="tr" data-i="🍷">德貝洒窖參觀</div>
+        <div class="tr" data-i="🌸">愛情花園漫步</div>
+        <div class="tr" data-i="🚂">搭乘高山小火車</div>
+        <div class="tr" data-i="🎮">Fantasy Park 室內樂園（一票到底暢玩）</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCREEN: DAY 4 ══ -->
+<div class="screen" id="screen-d4">
+  <div class="day-hero">
+    <img src="./D4.png" alt="D4 美山聖地">
+    <div class="day-hero-ov"></div>
+    <div class="day-big-num">04</div>
+    <div class="day-hero-cnt">
+      <div class="day-tag" style="color:rgba(255,180,140,.9)">Day 4 · 04/21（二）</div>
+      <h1>美山聖地・五行山・美溪海灘</h1>
+      <p>探訪世界遺產占婆王朝古蹟，漫步世界六大美灘</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#f5e6de;color:var(--c-d4)">🗺️</div><div class="card-ttl">D4 行程路線</div></div>
+      <div class="card-bd">
+        <div class="tl">
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d4)">1</div><div class="tl-cnt"><strong>美山聖地（Mỹ Sơn）</strong><p>1999 年世界遺產，步行約 20-30 分鐘，地形悶熱無遮蔽，建議穿球鞋並帶陽傘</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d4)">2</div><div class="tl-cnt"><strong>五行山（Ngũ Hành Sơn）</strong><p>電梯上山，下山階梯較陡，注意膝蓋</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d4)">3</div><div class="tl-cnt"><strong>美溪沙灘（Mỹ Khê Beach）</strong><p>世界最美六大海灘之一，潔白細沙，椰林搖曳</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d4)">🛍️</div><div class="tl-cnt"><strong>VINCOM CENTER 購物商場</strong><p>傍晚自由購物，峴港最大購物中心之一</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#f5e6de;color:var(--c-d4)">🏛️</div><div class="card-ttl">美山聖地（世界文化遺產）</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="hi"><strong>🌍 1999 年 UNESCO 世界文化遺產</strong>被稱為「越南的吳哥窟」，是東南亞保存最完整的印度教廟宇遺址群。</div>
+        <table class="it">
+          <tr><td>歷史</td><td>古占婆王朝（Chăm Pa）遺址</td></tr>
+          <tr><td>建築</td><td>紅磚印度教廟塔群，造型獨特</td></tr>
+          <tr><td>列入世遺</td><td>1999 年</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#f5e6de;color:var(--c-d4)">⛰️</div><div class="card-ttl">五行山（含觀景電梯）</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>越文名</td><td>Ngũ Hành Sơn</td></tr>
+          <tr><td>組成</td><td>五座大理石山丘（金木水火土）</td></tr>
+          <tr><td>傳說</td><td>仙人居住之地，風光如蓬萊</td></tr>
+          <tr><td>特色</td><td>神秘大理石洞穴，光束穿透奇景</td></tr>
+          <tr><td>設施</td><td>觀景電梯直上山頂（行程包含）</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#f5e6de;color:var(--c-d4)">🏖️</div><div class="card-ttl">美溪沙灘 · 世界六大美灘</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="hi"><strong>🌊 世界最美六大海灘之一</strong>潔白細膩沙灘綿延數公里，椰林搖曳，海水湛藍清澈。</div>
+        <table class="it">
+          <tr><td>越文名</td><td>Mỹ Khê Beach</td></tr>
+          <tr><td>特色</td><td>潔白沙灘、蔚藍海水、椰林景觀</td></tr>
+          <tr><td>距市區</td><td>車程約 10 分鐘</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCREEN: DAY 5 ══ -->
+<div class="screen" id="screen-d5">
+  <div class="day-hero">
+    <img src="./D5.png" alt="D5 粉紅教堂">
+    <div class="day-hero-ov"></div>
+    <div class="day-big-num">05</div>
+    <div class="day-hero-cnt">
+      <div class="day-tag" style="color:rgba(255,190,210,.9)">Day 5 · 04/22（三）</div>
+      <h1>粉紅教堂・漢江市場・返台</h1>
+      <p>最後一天採買伴手禮，搭乘長榮航空 BR384 返回桃園</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#fce6ef;color:var(--c-d5)">🗺️</div><div class="card-ttl">D5 行程路線</div></div>
+      <div class="card-bd">
+        <div class="tl">
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d5)">1</div><div class="tl-cnt"><strong>粉紅教堂（Nhà Thờ Tân Định）</strong><p>1923 年法國統治時期哥德式建築，越南中部最大西方教堂，必拍打卡點</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d5)">2</div><div class="tl-cnt"><strong>漢江市場（Chợ Hàn）</strong><p>峴港最大傳統市場，採購腰果、咖啡、奧黛等越南特產</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d5)">✈</div><div class="tl-cnt"><strong>長榮航空 BR 384 返台</strong><p>峴港機場（DAD）→ 桃園國際機場（TPE），旅程圓滿結束！</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#fce6ef;color:var(--c-d5)">⛪</div><div class="card-ttl">粉紅教堂</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <table class="it">
+          <tr><td>越文名</td><td>Nhà Thờ Tân Định</td></tr>
+          <tr><td>建造年份</td><td>1923 年（法國殖民時期）</td></tr>
+          <tr><td>建築風格</td><td>哥德式，鮮豔粉紅外觀</td></tr>
+          <tr><td>規模</td><td>越南中部最大西方教堂</td></tr>
+          <tr><td>IG 熱度</td><td>超熱門打卡景點，色彩鮮豔夢幻</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#fce6ef;color:var(--c-d5)">🛍️</div><div class="card-ttl">漢江市場（伴手禮採購）</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="hi"><strong>🛒 峴港最大傳統市場</strong>Chợ Hàn，兩層樓市場，乾貨食品在一樓，服飾在二樓。</div>
+        <p class="fw6 sm" style="margin-bottom:.36rem">推薦採購</p>
+        <div class="tr" data-i="☕">越南咖啡（Trung Nguyên、G7 等品牌）</div>
+        <div class="tr" data-i="🥜">腰果（鹽烤、原味各種口味）</div>
+        <div class="tr" data-i="🌰">龍眼乾、蓮子</div>
+        <div class="tr" data-i="👗">奧黛服飾（越南傳統旗袍）</div>
+        <div class="tr" data-i="🎁">手工藝品、特色紀念品</div>
+        <div class="alert mt1"><strong>💡 殺價小提示</strong>市場商品可議價，通常開價可砍到 5-7 折。</div>
+      </div>
+    </div>
+    <div class="card always">
+      <div class="card-hd"><div class="card-ico" style="background:#fce6ef;color:var(--c-d5)">✈️</div><div class="card-ttl">返程航班資訊</div></div>
+      <div class="card-bd">
+        <div class="fl">
+          <div class="fl-row">
+            <div class="fl-ap"><div class="code">DAD</div><div class="name">峴港國際機場</div><div style="font-size:.75rem;opacity:.85;margin-top:.2rem;font-weight:600">12:55</div></div>
+            <div class="fl-mid"><div class="al">長榮航空 BR 384</div><div class="arr"><span>✈</span></div></div>
+            <div class="fl-ap"><div class="code">TPE</div><div class="name">桃園國際機場</div><div style="font-size:.75rem;opacity:.85;margin-top:.2rem;font-weight:600">16:45</div></div>
+          </div>
+        </div>
+        <table class="it">
+          <tr><td>航班號</td><td>長榮航空 <strong>BR 384</strong></td></tr>
+          <tr><td>日期</td><td>2026 年 04 月 22 日（三）</td></tr>
+          <tr><td>起飛</td><td><strong>12:55</strong>（峴港時間）</td></tr>
+          <tr><td>降落</td><td><strong>16:45</strong>（台灣時間）</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="nav">
+  <button class="ni active" data-screen="prep" onclick="nav('prep')">
+    <div class="ni-bar"></div><div class="ni-icon">📋</div><span>準備</span>
+  </button>
+  <button class="ni" data-screen="d1" onclick="nav('d1')">
+    <div class="ni-bar"></div><div class="ni-icon">🌉</div><span>Day 1</span>
+  </button>
+  <button class="ni" data-screen="d2" onclick="nav('d2')">
+    <div class="ni-bar"></div><div class="ni-icon">🚣</div><span>Day 2</span>
+  </button>
+  <button class="ni" data-screen="d3" onclick="nav('d3')">
+    <div class="ni-bar"></div><div class="ni-icon">🌁</div><span>Day 3</span>
+  </button>
+  <button class="ni" data-screen="d4" onclick="nav('d4')">
+    <div class="ni-bar"></div><div class="ni-icon">🏛️</div><span>Day 4</span>
+  </button>
+  <button class="ni" data-screen="d5" onclick="nav('d5')">
+    <div class="ni-bar"></div><div class="ni-icon">✈️</div><span>Day 5</span>
+  </button>
+</nav>
+
+<script>
+const ORDER = ['prep','tips','d1','d2','d3','d4','d5'];
+let current = 'prep';
+let locked = false;
+
+function tog(c){ c.classList.toggle('open') }
+const RATE = 835;
+function toVND(v){ const el=document.getElementById('vnd'); el.value = v==='' ? '' : Math.round(v*RATE).toLocaleString().replace(/,/g,''); }
+function toTWD(v){ const el=document.getElementById('twd'); el.value = v==='' ? '' : (v/RATE).toFixed(1); }
+
+function nav(to){
+  if(locked || to === current) return;
+  locked = true;
+
+  const fromIdx = ORDER.indexOf(current);
+  const toIdx   = ORDER.indexOf(to);
+  const dir     = toIdx > fromIdx ? 1 : -1; // 1=forward, -1=back
+
+  const fromEl = document.getElementById('screen-' + current);
+  const toEl   = document.getElementById('screen-' + to);
+
+  // Position incoming screen fully off-screen (no transition)
+  toEl.style.transition = 'none';
+  toEl.style.transform  = dir > 0 ? 'translateX(100%)' : 'translateX(-100%)';
+  toEl.classList.remove('prev','active');
+
+  // Force reflow
+  void toEl.offsetWidth;
+
+  // Animate both screens
+  toEl.style.transition  = 'transform .3s cubic-bezier(.4,0,.2,1)';
+  fromEl.style.transition= 'transform .3s cubic-bezier(.4,0,.2,1)';
+
+  toEl.style.transform   = 'translateX(0)';
+  fromEl.style.transform = dir > 0 ? 'translateX(-28%)' : 'translateX(100%)';
+
+  // Update nav
+  document.querySelectorAll('.ni').forEach(n =>
+    n.classList.toggle('active', n.dataset.screen === to)
+  );
+
+  // Cleanup after animation — park outgoing screen fully off-screen
+  setTimeout(() => {
+    fromEl.style.transition = '';
+    fromEl.style.transform  = 'translateX(100%)';
+    fromEl.classList.remove('active','prev');
+    toEl.style.transition   = '';
+    toEl.classList.add('active');
+    current = to;
+    locked  = false;
+  }, 310);
+}
+</script>
+</body>
+</html>
