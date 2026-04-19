@@ -214,11 +214,11 @@ html,body{height:100%;overflow:hidden;font-family:'Noto Serif TC',Georgia,serif;
     <div class="card always">
       <div class="card-hd"><div class="card-ico" style="background:#e4f3f7;color:var(--c-prep)">💰</div><div class="card-ttl">匯率・電壓・小費建議</div></div>
       <div class="card-bd">
-        <div class="rate-box"><div class="r">1 TWD ≈ 835 VND</div><div class="l">建議帶台幣給導遊換匯，剩餘越南盾可按原匯率換回</div></div>
+        <div class="rate-box"><div class="r">1 TWD ≈ 790 VND</div><div class="l">建議帶台幣給導遊換匯，剩餘越南盾可按原匯率換回</div></div>
         <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.65rem">
           <div style="flex:1">
             <div style="font-size:.65rem;color:var(--muted);margin-bottom:.3rem;font-weight:600">越南盾 VND</div>
-            <input id="vnd" type="number" inputmode="decimal" placeholder="835" oninput="toTWD(this.value)" style="width:100%;padding:.6rem .75rem;border:1.5px solid #ddd;border-radius:9px;font-size:.95rem;font-family:inherit;outline:none;background:#fff;color:var(--text)">
+            <input id="vnd" type="number" inputmode="decimal" placeholder="790" oninput="toTWD(this.value)" style="width:100%;padding:.6rem .75rem;border:1.5px solid #ddd;border-radius:9px;font-size:.95rem;font-family:inherit;outline:none;background:#fff;color:var(--text)">
           </div>
           <div style="font-size:1rem;color:var(--muted);padding-top:1.2rem">⇄</div>
           <div style="flex:1">
@@ -569,6 +569,8 @@ html,body{height:100%;overflow:hidden;font-family:'Noto Serif TC',Georgia,serif;
           <div class="tl-item"><div class="tl-dot" style="background:var(--c-d2)">1</div><div class="tl-cnt"><strong>著名竹籃碗公船體驗</strong><p>搭乘圓形竹籃船深入水椰林，漁夫高速旋轉翻騰，刺激過癮！⚠️ 易暈船者不建議參加旋轉環節</p></div></div>
           <div class="tl-item"><div class="tl-dot" style="background:var(--c-d2)">2</div><div class="tl-cnt"><strong>釣螃蟹體驗</strong><p>於椰林水道中使用天然釣竿，體驗當地漁民生活樂趣</p></div></div>
           <div class="tl-item"><div class="tl-dot" style="background:var(--c-d2)">3</div><div class="tl-cnt"><strong>山茶半島・靈應寺</strong><p>參拜 68 公尺高觀音像，俯瞰美溪沙灘壯麗全景</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d2)">💆</div><div class="tl-cnt"><strong>越式精油按摩 / SPA</strong><p>行程結束後享受越南傳統按摩，放鬆一日疲勞</p></div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:var(--c-d2)">🐉</div><div class="tl-cnt"><strong>峴港龍橋夜遊</strong><p>夜間燈光璀璨映照漢江，週末限定噴火噴水秀 <strong>21:00</strong></p></div></div>
         </div>
       </div>
     </div>
@@ -581,6 +583,17 @@ html,body{height:100%;overflow:hidden;font-family:'Noto Serif TC',Georgia,serif;
       </div>
     </div>
     <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#ddf4f7;color:var(--c-d2)">💆</div><div class="card-ttl">越式精油按摩 / SPA 體驗</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="hi"><strong>🌿 行程包含自費按摩項目</strong>全身精油按摩 90 分鐘，消除整日疲勞，感受正宗越南 SPA 療程。</div>
+        <table class="it">
+          <tr><td>全身精油按摩</td><td>90 分鐘 — <strong>NT$1,000 / 人</strong></td></tr>
+          <tr><td>越式洗頭</td><td><strong>NT$1,000 / 人</strong></td></tr>
+        </table>
+        <div class="tip mt1"><strong>💰 小費建議</strong>按摩師小費 VND 50,000–100,000 / 次（約 NT$60–120）。請用紙鈔，勿給硬幣。</div>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
       <div class="card-hd"><div class="card-ico" style="background:#ddf4f7;color:var(--c-d2)">🙏</div><div class="card-ttl">山茶半島・靈應寺</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
       <div class="card-bd">
         <table class="it">
@@ -590,6 +603,20 @@ html,body{height:100%;overflow:hidden;font-family:'Noto Serif TC',Georgia,serif;
           <tr><td>俯瞰景色</td><td>美溪沙灘（Mỹ Khê Beach）全景</td></tr>
           <tr><td>生態</td><td>原始森林，棲息珍稀動物及猴群</td></tr>
         </table>
+      </div>
+    </div>
+    <div class="card" onclick="tog(this)">
+      <div class="card-hd"><div class="card-ico" style="background:#ddf4f7;color:var(--c-d2)">🌉</div><div class="card-ttl">峴港地標 · 龍橋夜遊（週日限定）</div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg></div>
+      <div class="card-bd">
+        <div class="hi"><strong>🐉 週末限定噴火噴水秀</strong>今天是週日，可欣賞龍橋每週限定的噴火噴水表演！</div>
+        <table class="it">
+          <tr><td>全長</td><td><strong>666 公尺</strong></td></tr>
+          <tr><td>造型</td><td>金龍騰空，橋身以龍身為造型</td></tr>
+          <tr><td>特色</td><td>越南首座旋轉橋，可開合讓船隻通過</td></tr>
+          <tr><td>最佳時段</td><td>夜間燈光璀璨，映照漢江（Han River）</td></tr>
+          <tr><td>噴火噴水秀</td><td>⏰ <strong>每週六、日 21:00</strong>（免費觀看）</td></tr>
+        </table>
+        <div class="tip mt1"><strong>📍 觀賞位置</strong>建議在龍橋兩側河岸或對岸觀賞，河岸廣場人潮較少、視角最佳。</div>
       </div>
     </div>
   </div>
@@ -812,7 +839,7 @@ let current = 'prep';
 let locked = false;
 
 function tog(c){ c.classList.toggle('open') }
-const RATE = 835;
+const RATE = 790;
 function toVND(v){ const el=document.getElementById('vnd'); el.value = v==='' ? '' : Math.round(v*RATE).toLocaleString().replace(/,/g,''); }
 function toTWD(v){ const el=document.getElementById('twd'); el.value = v==='' ? '' : (v/RATE).toFixed(1); }
 
