@@ -325,7 +325,7 @@
     /* ───── 口譯輸出 ───── */
     #interpretation-panel {
       display: grid;
-      grid-template-columns: minmax(150px, 0.8fr) minmax(170px, auto) minmax(260px, 1.4fr) auto minmax(112px, auto);
+      grid-template-columns: minmax(150px, 0.8fr) minmax(200px, auto) minmax(240px, 1.2fr) auto minmax(112px, auto);
       gap: 12px;
       align-items: center;
       padding: 14px 24px;
@@ -360,9 +360,10 @@
     #interpretation-status.connected { color: var(--green); }
     #interpretation-status.error { color: var(--red); }
     .interpretation-source {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr;
       align-items: center;
-      gap: 8px;
+      gap: 6px 8px;
       min-width: 0;
     }
     .interpretation-source label {
@@ -370,13 +371,14 @@
       font-size: 11px;
       white-space: nowrap;
     }
-    #interpretation-audio-source {
+    .interpretation-source select {
       background: var(--bg-elev);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       color: var(--text);
-      min-width: 136px;
-      padding: 8px 28px 8px 10px;
+      min-width: 0;
+      width: 100%;
+      padding: 6px 26px 6px 10px;
       outline: none;
       appearance: none;
       background-image: linear-gradient(45deg, transparent 50%, var(--text-dim) 50%),
@@ -384,6 +386,10 @@
       background-position: calc(100% - 14px) center, calc(100% - 9px) center;
       background-size: 5px 5px, 5px 5px;
       background-repeat: no-repeat;
+    }
+    .interpretation-source select:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
     }
     .mix-control {
       display: grid;
@@ -620,7 +626,6 @@
       #mix-value-label {
         text-align: left;
       }
-      #interpretation-audio-source { flex: 1; min-width: 0; }
       .mode-toggle button { flex: 1; min-width: 0; }
       #interpretation-toggle-btn { justify-self: stretch; }
       #floating-stop-btn {
@@ -735,7 +740,7 @@
     </div>
   </main>
 
-  <section id="interpretation-panel" aria-label="日文音訊到繁中口譯輸出">
+  <section id="interpretation-panel" aria-label="即時口譯輸出">
     <div class="interpretation-title">
       <h2>口譯輸出</h2>
       <div id="interpretation-status" class="idle" role="status" aria-live="polite">未啟動</div>
@@ -746,6 +751,16 @@
       <select id="interpretation-audio-source">
         <option value="microphone" selected>本機麥克風</option>
         <option value="system">系統/會議音訊</option>
+      </select>
+      <label for="interpretation-source-lang">原文</label>
+      <select id="interpretation-source-lang">
+        <option value="ja" selected>日文</option>
+        <option value="zh">繁中</option>
+      </select>
+      <label for="interpretation-target-lang">口譯</label>
+      <select id="interpretation-target-lang">
+        <option value="zh" selected>繁中</option>
+        <option value="ja">日文</option>
       </select>
     </div>
     <div class="mix-control" id="mix-control">
@@ -826,6 +841,8 @@
     const interpretationStatus = document.getElementById('interpretation-status');
     const interpretationSuppressionStatus = document.getElementById('interpretation-suppression-status');
     const interpretationAudioSource = document.getElementById('interpretation-audio-source');
+    const interpretationSourceLang = document.getElementById('interpretation-source-lang');
+    const interpretationTargetLang = document.getElementById('interpretation-target-lang');
     const mixSlider = document.getElementById('mix-slider');
     const mixValueLabel = document.getElementById('mix-value-label');
     const mixControl = document.getElementById('mix-control');
@@ -843,6 +860,10 @@
       connected: '口譯中',
       error: '錯誤',
     };
+    const INTERPRETATION_LANG_LABEL = { ja: '日文', zh: '繁中' };
+    const INTERPRETATION_PANEL = document.getElementById('interpretation-panel');
+    const INTERPRETATION_MODE_ORIGINAL_BTN = document.getElementById('mode-ja-original');
+    const INTERPRETATION_MODE_INTERPRET_BTN = document.getElementById('mode-zh-interpret');
 
     let interpretationHandles = null;
     let currentMix = 100;
@@ -851,6 +872,58 @@
     let interpretationOutputEntry = null;
     let interpretationInputText = '';
     let interpretationOutputText = '';
+    // 當口譯 session 啟動後,把選擇鎖定下來;停止後重置為 null 改回讀下拉
+    let activeInterpretationSourceLang = null;
+    let activeInterpretationTargetLang = null;
+
+    function getInterpretationLangs() {
+      const source = activeInterpretationSourceLang ?? interpretationSourceLang.value;
+      const target = activeInterpretationTargetLang ?? interpretationTargetLang.value;
+      return { source, target };
+    }
+
+    function interpretationLangLabel(code) {
+      return INTERPRETATION_LANG_LABEL[code] ?? code;
+    }
+
+    function updateInterpretationLanguageUI() {
+      const { source, target } = getInterpretationLangs();
+      const sourceLabel = interpretationLangLabel(source);
+      const targetLabel = interpretationLangLabel(target);
+      INTERPRETATION_MODE_ORIGINAL_BTN.textContent = `${sourceLabel}原文`;
+      INTERPRETATION_MODE_INTERPRET_BTN.textContent = `${targetLabel}口譯`;
+      INTERPRETATION_PANEL.setAttribute(
+        'aria-label',
+        `${sourceLabel}音訊到${targetLabel}口譯輸出`,
+      );
+    }
+
+    function interpretationInputMeta(suffix = '') {
+      const { source } = getInterpretationLangs();
+      const base = `口譯 · ${interpretationLangLabel(source)}原文`;
+      return suffix ? `${base} · ${suffix}` : base;
+    }
+
+    function interpretationOutputMeta(suffix = '') {
+      const { target } = getInterpretationLangs();
+      const base = `口譯 · ${interpretationLangLabel(target)}`;
+      return suffix ? `${base} · ${suffix}` : base;
+    }
+
+    function handleInterpretationLangChange(side) {
+      // 來源與目標不能相同;同步翻另一邊
+      if (interpretationSourceLang.value === interpretationTargetLang.value) {
+        if (side === 'source') {
+          interpretationTargetLang.value = otherLanguage(interpretationSourceLang.value);
+        } else {
+          interpretationSourceLang.value = otherLanguage(interpretationTargetLang.value);
+        }
+      }
+      updateInterpretationLanguageUI();
+    }
+
+    interpretationSourceLang.addEventListener('change', () => handleInterpretationLangChange('source'));
+    interpretationTargetLang.addEventListener('change', () => handleInterpretationLangChange('target'));
 
     function otherLanguage(lang) {
       return lang === 'ja' ? 'zh' : 'ja';
@@ -878,6 +951,7 @@
     leftLanguageSelect.addEventListener('change', () => syncLanguageSelectors('left'));
     rightLanguageSelect.addEventListener('change', () => syncLanguageSelectors('right'));
     updateColumnLabels();
+    updateInterpretationLanguageUI();
 
     function setInterpretationStatus(state, detail = '') {
       interpretationStatus.className = state;
@@ -914,7 +988,7 @@
         translatedAudio.volume = translatedVolume;
       }
 
-      const sourceAudio = SharedAudioCapture.getSourceAudio?.();
+      const sourceAudio = interpretationHandles?.sourceAudio ?? null;
       if (sourceAudio) {
         sourceAudio.muted = false;
         sourceAudio.volume = originalVolume;
@@ -1071,7 +1145,7 @@
       interpretationToggleBtn.classList.toggle('active', running);
       interpretationAudioSource.disabled = running || isInterpretationConnecting;
       interpretationToggleBtn.disabled = isInterpretationConnecting && !running;
-      syncSharedAudioSourceUI();
+      syncAudioSourceUI();
     }
 
     function hideActiveInterpretationInputEntry() {
@@ -1080,23 +1154,16 @@
       interpretationInputEntry = null;
     }
 
-    function syncSharedAudioSourceUI() {
-      const activeSource = SharedAudioCapture?.getActiveSource?.() ?? null;
-      const hasSharedCapture = Boolean(activeSource);
+    function syncAudioSourceUI() {
       const subtitleRunning = Boolean(handles) || isConnecting;
       const interpretationRunning = Boolean(interpretationHandles) || isInterpretationConnecting;
 
-      if (hasSharedCapture) {
-        audioSourceSelect.value = activeSource;
-        interpretationAudioSource.value = activeSource;
-      }
-
-      audioSourceSelect.disabled = hasSharedCapture || subtitleRunning;
-      interpretationAudioSource.disabled = hasSharedCapture || interpretationRunning;
-      interpretationAudioSource.title = hasSharedCapture
-        ? `沿用目前音訊來源: ${SharedAudioCapture.sourceLabel(activeSource)}`
-        : '';
-      const effectiveSource = activeSource ?? interpretationAudioSource.value;
+      audioSourceSelect.disabled = subtitleRunning;
+      interpretationAudioSource.disabled = interpretationRunning;
+      interpretationSourceLang.disabled = interpretationRunning;
+      interpretationTargetLang.disabled = interpretationRunning;
+      interpretationAudioSource.title = '';
+      const effectiveSource = interpretationHandles?.source ?? interpretationAudioSource.value;
       const isMicrophone = effectiveSource === 'microphone';
       mixSlider.disabled = isMicrophone;
       interpretationModeButtons.forEach((button) => {
@@ -1110,9 +1177,8 @@
     }
 
     function updateSuppressionStatus() {
-      const state = SharedAudioCapture?.getSuppressionState?.() ?? 'idle';
-      const hasSharedCapture = SharedAudioCapture?.hasActiveCapture?.() ?? false;
-      if (!hasSharedCapture) {
+      const state = interpretationHandles?.suppression ?? 'idle';
+      if (!interpretationHandles) {
         interpretationSuppressionStatus.textContent = '原音屏蔽: 未啟動';
         return;
       }
@@ -1130,7 +1196,7 @@
       button.addEventListener('click', () => applyAudioMix(button.dataset.mix));
     });
     mixSlider.addEventListener('input', () => applyAudioMix(mixSlider.value));
-    interpretationAudioSource.addEventListener('change', syncSharedAudioSourceUI);
+    interpretationAudioSource.addEventListener('change', syncAudioSourceUI);
 
     // ================================================================
     // 狀態 Pill 切換(供 connectRealtime / 錯誤處理呼叫)
@@ -1424,63 +1490,34 @@
     })();
 
     // ================================================================
-    // SharedAudioCapture — 兩條流程共用同一個音訊來源
+    // AudioCaptureSession — 翻譯 / 口譯各自持有自己的音訊來源
     // ================================================================
-    const SharedAudioCapture = (() => {
-      let active = null;
-      let nextLeaseId = 1;
-
-      async function acquire(requestedSource = 'microphone', consumer = 'unknown', opts = {}) {
-        if (active?.stream?.active) {
-          const lease = createLease(consumer);
-          active.leases.set(lease.id, lease);
-          if (requestedSource !== active.source) {
-            Log.add('evt', `${consumer} 沿用目前音訊來源: ${sourceLabel(active.source)}`);
-          }
-          if (opts.suppressLocalAudioPlayback === true && active.suppression !== 'enabled') {
-            Log.add('err', `${consumer} 沿用的音訊來源未屏蔽原音。若要讓 mix slider 完整控制原音,請停止所有流程後先啟動口譯。`);
-          }
-          syncSharedAudioSourceUI();
-          return lease;
-        }
-
-        const shouldCreateSourceAudio = requestedSource === 'system' && opts.createSourceAudio !== false;
+    const AudioCaptureSession = (() => {
+      async function acquire(requestedSource = 'microphone', owner = 'unknown', opts = {}) {
         const stream = await Mic.acquire(requestedSource, {
           suppressLocalAudioPlayback: opts.suppressLocalAudioPlayback === true,
         });
         const cleanupVolumeViz = Mic.startVolumeViz(stream);
-        active = {
+        const session = {
+          owner,
           stream,
           source: requestedSource,
-          leases: new Map(),
           cleanupVolumeViz,
           suppression: readSuppressionState(stream, requestedSource),
-          sourceAudio: shouldCreateSourceAudio ? createSourceAudio(stream, requestedSource) : null,
+          sourceAudio: requestedSource === 'system' && opts.createSourceAudio === true
+            ? createSourceAudio(stream)
+            : null,
           cleanupSourceAudioMeter: null,
         };
-        if (active.sourceAudio) {
-          active.cleanupSourceAudioMeter = startAudioElementMeter(active.sourceAudio, '原音 sourceAudio');
+        if (session.sourceAudio) {
+          session.cleanupSourceAudioMeter = startAudioElementMeter(session.sourceAudio, `${owner} 原音 sourceAudio`);
         }
-        attachTrackDiagnostics(stream.getAudioTracks()[0], `${sourceLabel(requestedSource)} 擷取`);
-
-        const lease = createLease(consumer);
-        active.leases.set(lease.id, lease);
-        Log.add('evt', `音訊來源已取得: ${sourceLabel(requestedSource)}, 原音屏蔽=${active.suppression}`);
-        syncSharedAudioSourceUI();
-        return lease;
+        attachTrackDiagnostics(stream.getAudioTracks()[0], `${owner} ${sourceLabel(requestedSource)} 擷取`);
+        Log.add('evt', `${owner} 音訊來源已取得: ${sourceLabel(requestedSource)}, 原音屏蔽=${session.suppression}`);
+        return session;
       }
 
-      function createLease(consumer) {
-        return {
-          id: nextLeaseId++,
-          consumer,
-          stream: active?.stream ?? null,
-          source: active?.source ?? null,
-        };
-      }
-
-      function createSourceAudio(stream, source) {
-        if (source !== 'system') return null;
+      function createSourceAudio(stream) {
         const audio = new Audio();
         audio.autoplay = true;
         audio.playsInline = true;
@@ -1494,42 +1531,14 @@
         return audio;
       }
 
-      function release(lease) {
-        if (!lease || !active) return;
-        active.leases.delete(lease.id);
-        Log.add('evt', `${lease.consumer} 釋放音訊 lease, remaining=${active.leases.size}`);
-
-        if (active.leases.size > 0) {
-          syncSharedAudioSourceUI();
-          return;
-        }
-
-        try { active.sourceAudio?.pause(); } catch {}
-        try { active.cleanupSourceAudioMeter?.(); } catch {}
-        if (active.sourceAudio) active.sourceAudio.srcObject = null;
-        active.cleanupSourceAudioMeter = null;
-        active.sourceAudio = null;
-        try { active.cleanupVolumeViz?.(); } catch {}
-        Mic.release(active.stream);
-        Log.add('evt', '共用音訊來源已釋放');
-        active = null;
-        syncSharedAudioSourceUI();
-      }
-
-      function getActiveSource() {
-        return active?.source ?? null;
-      }
-
-      function getSuppressionState() {
-        return active?.suppression ?? 'idle';
-      }
-
-      function getSourceAudio() {
-        return active?.sourceAudio ?? null;
-      }
-
-      function hasActiveCapture() {
-        return Boolean(active?.stream?.active);
+      function release(session) {
+        if (!session) return;
+        try { session.sourceAudio?.pause(); } catch {}
+        try { session.cleanupSourceAudioMeter?.(); } catch {}
+        if (session.sourceAudio) session.sourceAudio.srcObject = null;
+        try { session.cleanupVolumeViz?.(); } catch {}
+        Mic.release(session.stream);
+        Log.add('evt', `${session.owner} 音訊來源已釋放`);
       }
 
       function sourceLabel(source) {
@@ -1551,7 +1560,7 @@
         return 'unknown';
       }
 
-      return { acquire, release, getActiveSource, getSuppressionState, getSourceAudio, hasActiveCapture, sourceLabel };
+      return { acquire, release, sourceLabel };
     })();
 
     // ================================================================
@@ -1629,17 +1638,17 @@ For Japanese transcription:
         opts.onStateChange?.('connecting');
 
         let micStream = null;
-        let captureLease = null;
+        let captureSession = null;
         let pc = null;
         let dc = null;
         let cleanupPeerStats = null;
 
         try {
-          captureLease = await SharedAudioCapture.acquire(opts.audioSource, '雙向字幕', {
+          captureSession = await AudioCaptureSession.acquire(opts.audioSource, '雙向字幕', {
             suppressLocalAudioPlayback: false,
             createSourceAudio: false,
           });
-          micStream = captureLease.stream;
+          micStream = captureSession.stream;
 
           pc = new RTCPeerConnection();
           const audioTrack = micStream.getAudioTracks()[0];
@@ -1698,23 +1707,23 @@ For Japanese transcription:
             else if (s === 'failed' || s === 'disconnected' || s === 'closed') opts.onStateChange?.('failed');
           };
 
-          return { pc, dc, captureLease, cleanupPeerStats };
+          return { pc, dc, captureSession, source: captureSession.source, cleanupPeerStats };
         } catch (err) {
           try { cleanupPeerStats?.(); } catch {}
           try { dc?.close(); } catch {}
           try { pc?.close(); } catch {}
-          SharedAudioCapture.release(captureLease);
+          AudioCaptureSession.release(captureSession);
           throw err;
         }
       }
 
       function disconnect(handles) {
         if (!handles) return;
-        const { pc, dc, captureLease, cleanupPeerStats } = handles;
+        const { pc, dc, captureSession, cleanupPeerStats } = handles;
         try { cleanupPeerStats?.(); } catch {}
         try { dc?.close(); } catch {}
         try { pc?.close(); } catch {}
-        SharedAudioCapture.release(captureLease);
+        AudioCaptureSession.release(captureSession);
       }
 
       return { connect, disconnect };
@@ -1727,8 +1736,11 @@ For Japanese transcription:
       const TRANSLATION_CLIENT_SECRET_URL = 'https://api.openai.com/v1/realtime/translations/client_secrets';
       const TRANSLATION_CALL_URL = 'https://api.openai.com/v1/realtime/translations/calls';
 
-      async function createTranslationSession({ targetLanguage = 'zh', apiKey } = {}) {
+      async function createTranslationSession({ targetLanguage = 'zh', sourceLanguage, apiKey } = {}) {
         const language = String(targetLanguage || 'zh').trim().toLowerCase();
+        const srcLang = sourceLanguage ? String(sourceLanguage).trim().toLowerCase() : null;
+        // 註:Realtime Translation API 不接受 transcription.language / transcription.prompt,
+        // 來源語言僅供 UI 顯示與本地辨識,實際辨識交由模型自動偵測
         const response = await fetch(TRANSLATION_CLIENT_SECRET_URL, {
           method: 'POST',
           headers: {
@@ -1776,6 +1788,7 @@ For Japanese transcription:
           model: body.session?.model ?? 'gpt-realtime-translate',
           session: body.session ?? null,
           targetLanguage: language,
+          sourceLanguage: srcLang,
         };
       }
 
@@ -1783,7 +1796,7 @@ For Japanese transcription:
         opts.onStateChange?.('connecting');
 
         let micStream = null;
-        let captureLease = null;
+        let captureSession = null;
         let pc = null;
         let dc = null;
         let translatedAudio = null;
@@ -1791,20 +1804,21 @@ For Japanese transcription:
         let cleanupTranslatedAudioMeter = null;
 
         try {
-          captureLease = await SharedAudioCapture.acquire(opts.audioSource, '繁中口譯', {
+          captureSession = await AudioCaptureSession.acquire(opts.audioSource, '繁中口譯', {
             suppressLocalAudioPlayback: true,
             createSourceAudio: true,
           });
-          micStream = captureLease.stream;
+          micStream = captureSession.stream;
           const audioTrack = micStream.getAudioTracks()[0];
           if (!audioTrack) {
-            const err = new Error('沒有取得可用的日文音訊軌');
+            const err = new Error('沒有取得可用的口譯來源音訊軌');
             err.code = 'NO_CAPTURE_AUDIO';
             throw err;
           }
 
           const session = await createTranslationSession({
             targetLanguage: opts.targetLanguage || 'zh',
+            sourceLanguage: opts.sourceLanguage,
             apiKey: opts.apiKey,
           });
 
@@ -1878,14 +1892,25 @@ For Japanese transcription:
           }
 
           await pc.setRemoteDescription({ type: 'answer', sdp: answerSdp });
-          return { pc, dc, captureLease, translatedAudio, session, cleanupPeerStats, cleanupTranslatedAudioMeter };
+          return {
+            pc,
+            dc,
+            captureSession,
+            translatedAudio,
+            sourceAudio: captureSession.sourceAudio,
+            source: captureSession.source,
+            suppression: captureSession.suppression,
+            session,
+            cleanupPeerStats,
+            cleanupTranslatedAudioMeter,
+          };
         } catch (err) {
           try { cleanupTranslatedAudioMeter?.(); } catch {}
           try { cleanupPeerStats?.(); } catch {}
           try { dc?.close(); } catch {}
           try { pc?.close(); } catch {}
           cleanupAudio(translatedAudio);
-          SharedAudioCapture.release(captureLease);
+          AudioCaptureSession.release(captureSession);
           throw err;
         }
       }
@@ -1898,13 +1923,13 @@ For Japanese transcription:
 
       function disconnect(handles) {
         if (!handles) return;
-        const { pc, dc, captureLease, translatedAudio, cleanupPeerStats, cleanupTranslatedAudioMeter } = handles;
+        const { pc, dc, captureSession, translatedAudio, cleanupPeerStats, cleanupTranslatedAudioMeter } = handles;
         try { cleanupTranslatedAudioMeter?.(); } catch {}
         try { cleanupPeerStats?.(); } catch {}
         try { dc?.close(); } catch {}
         try { pc?.close(); } catch {}
         cleanupAudio(translatedAudio);
-        SharedAudioCapture.release(captureLease);
+        AudioCaptureSession.release(captureSession);
       }
 
       return { connect, disconnect };
@@ -2405,7 +2430,7 @@ ${transcript || '[audio turn reference]'}`;
       finalizeInterpretationEntry(
         interpretationInputEntry,
         interpretationInputText,
-        '口譯 · 日文原文 · 保留',
+        interpretationInputMeta('保留'),
       );
       interpretationInputEntry = null;
       interpretationInputText = '';
@@ -2414,7 +2439,7 @@ ${transcript || '[audio turn reference]'}`;
     function getOrCreateInterpretationInputEntry() {
       if (!interpretationInputEntry) {
         interpretationInputEntry = createEntry('left', '', true, false);
-        interpretationInputEntry.querySelector('.meta').textContent = '口譯 · 日文原文';
+        interpretationInputEntry.querySelector('.meta').textContent = interpretationInputMeta();
       }
       return interpretationInputEntry;
     }
@@ -2422,7 +2447,7 @@ ${transcript || '[audio turn reference]'}`;
     function getOrCreateInterpretationOutputEntry() {
       if (!interpretationOutputEntry) {
         interpretationOutputEntry = createEntry('right', '', true, true);
-        interpretationOutputEntry.querySelector('.meta').textContent = '口譯 · 繁中';
+        interpretationOutputEntry.querySelector('.meta').textContent = interpretationOutputMeta();
       }
       return interpretationOutputEntry;
     }
@@ -2446,7 +2471,7 @@ ${transcript || '[audio turn reference]'}`;
       interpretationOutputText += delta;
       if (!interpretationOutputEntry) {
         interpretationOutputEntry = createEntry('right', '', true, true);
-        interpretationOutputEntry.querySelector('.meta').textContent = '口譯 · 繁中';
+        interpretationOutputEntry.querySelector('.meta').textContent = interpretationOutputMeta();
       }
       appendEntryText(interpretationOutputEntry, delta);
       maybeAutoScroll(interpretationOutputEntry.parentElement);
@@ -2471,7 +2496,7 @@ ${transcript || '[audio turn reference]'}`;
         const text = evt.transcript ?? evt.text ?? interpretationInputText;
         if (shouldRenderInterpretationInput()) {
           const entry = interpretationInputEntry || getOrCreateInterpretationInputEntry();
-          finalizeInterpretationEntry(entry, text, '口譯 · 日文原文 · final');
+          finalizeInterpretationEntry(entry, text, interpretationInputMeta('final'));
         }
         interpretationInputEntry = null;
         interpretationInputText = '';
@@ -2480,7 +2505,7 @@ ${transcript || '[audio turn reference]'}`;
       if (INTERPRETATION_OUTPUT_DONE_EVENTS.has(evt.type)) {
         if (interpretationOutputEntry) {
           const text = evt.transcript ?? evt.text ?? interpretationOutputText;
-          finalizeInterpretationEntry(interpretationOutputEntry, text, '口譯 · 繁中 · final');
+          finalizeInterpretationEntry(interpretationOutputEntry, text, interpretationOutputMeta('final'));
         }
         interpretationOutputEntry = null;
         interpretationOutputText = '';
@@ -2563,19 +2588,19 @@ ${transcript || '[audio turn reference]'}`;
     let handles = null;
     let isConnecting = false;
     let userInitiatedDisconnect = false;
-    syncSharedAudioSourceUI();
+    syncAudioSourceUI();
 
     function applyConnectedUI() {
       startBtn.textContent = '結束';
       startBtn.classList.add('active');
       floatingStopBtn.classList.add('visible');
-      syncSharedAudioSourceUI();
+      syncAudioSourceUI();
     }
     function applyIdleUI() {
       startBtn.textContent = '開始翻譯';
       startBtn.classList.remove('active');
       floatingStopBtn.classList.remove('visible');
-      syncSharedAudioSourceUI();
+      syncAudioSourceUI();
     }
 
     /**
@@ -2598,7 +2623,7 @@ ${transcript || '[audio turn reference]'}`;
     function onStateChange(state) {
       if (state === 'connecting') {
         setStatus('connecting');
-        syncSharedAudioSourceUI();
+        syncAudioSourceUI();
         Log.add('evt', '連線中...');
       } else if (state === 'connected') {
         setStatus('connected');
@@ -2614,18 +2639,30 @@ ${transcript || '[audio turn reference]'}`;
       }
     }
 
-    function stopSubtitleTranslationForModeSwitch() {
-      if (!handles) return;
+    function confirmStopSubtitleTranslationForModeSwitch() {
+      if (!handles) return true;
+      const ok = confirm('上方翻譯正在進行中。若要切換到下方口譯,會先停止上方翻譯。是否繼續?');
+      if (!ok) {
+        Log.add('evt', '已取消切換到口譯');
+        return false;
+      }
       userInitiatedDisconnect = true;
       cleanupSession({ status: 'idle', silent: true });
       userInitiatedDisconnect = false;
       Log.add('evt', '已停止上方翻譯,切換到口譯');
+      return true;
     }
 
-    function stopInterpretationForModeSwitch() {
-      if (!interpretationHandles) return;
+    function confirmStopInterpretationForModeSwitch() {
+      if (!interpretationHandles) return true;
+      const ok = confirm('下方口譯正在進行中。若要切換到上方翻譯,會先停止下方口譯。是否繼續?');
+      if (!ok) {
+        Log.add('evt', '已取消切換到翻譯');
+        return false;
+      }
       cleanupInterpretationSession({ status: 'idle', silent: true });
       Log.add('evt', '已停止下方口譯,切換到翻譯');
+      return true;
     }
 
     async function handleStartStopClick() {
@@ -2650,9 +2687,10 @@ ${transcript || '[audio turn reference]'}`;
       }
       if (isInterpretationConnecting) {
         Log.add('err', '口譯連線中,請稍後再切換到翻譯');
+        alert('下方口譯正在連線中,請稍後再切換到上方翻譯。');
         return;
       }
-      stopInterpretationForModeSwitch();
+      if (!confirmStopInterpretationForModeSwitch()) return;
 
       const mainModel       = mainModelSelect.value;
       const transcribeModel = transcribeSelect.value;
@@ -2700,8 +2738,11 @@ ${transcript || '[audio turn reference]'}`;
       }
       resetInterpretationTranscriptState();
       isInterpretationConnecting = false;
+      activeInterpretationSourceLang = null;
+      activeInterpretationTargetLang = null;
       applyInterpretationRunningUI(false);
       setInterpretationStatus(opts.status ?? 'idle');
+      updateInterpretationLanguageUI();
       if (!opts.silent) {
         Log.add(opts.status === 'error' ? 'err' : 'evt', opts.message ?? '口譯已停止');
       }
@@ -2710,7 +2751,7 @@ ${transcript || '[audio turn reference]'}`;
     function onInterpretationStateChange(state) {
       if (state === 'connecting') {
         setInterpretationStatus('connecting');
-        syncSharedAudioSourceUI();
+        syncAudioSourceUI();
         Log.add('evt', '口譯連線中...');
       } else if (state === 'connected') {
         setInterpretationStatus('connected');
@@ -2731,6 +2772,7 @@ ${transcript || '[audio turn reference]'}`;
       if (isInterpretationConnecting) return;
       if (isConnecting) {
         Log.add('err', '翻譯連線中,請稍後再切換到口譯');
+        alert('上方翻譯正在連線中,請稍後再切換到下方口譯。');
         return;
       }
 
@@ -2743,9 +2785,12 @@ ${transcript || '[audio turn reference]'}`;
         alert(ERR.INVALID_KEY);
         return;
       }
-      stopSubtitleTranslationForModeSwitch();
+      if (!confirmStopSubtitleTranslationForModeSwitch()) return;
 
       isInterpretationConnecting = true;
+      activeInterpretationSourceLang = interpretationSourceLang.value;
+      activeInterpretationTargetLang = interpretationTargetLang.value;
+      updateInterpretationLanguageUI();
       applyInterpretationRunningUI(false);
       resetInterpretationTranscriptState();
       setInterpretationStatus('connecting');
@@ -2753,7 +2798,8 @@ ${transcript || '[audio turn reference]'}`;
       try {
         interpretationHandles = await InterpretationRT.connect({
           apiKey,
-          targetLanguage: 'zh',
+          sourceLanguage: activeInterpretationSourceLang,
+          targetLanguage: activeInterpretationTargetLang,
           audioSource: interpretationAudioSource.value,
           onStateChange: onInterpretationStateChange,
           onEvent: handleInterpretationRealtimeEvent,
