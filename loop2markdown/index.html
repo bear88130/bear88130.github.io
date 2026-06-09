@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loop → Markdown 轉換器</title>
+  <meta name="description" content="把 Microsoft Loop 內容貼進來，自動轉成 Markdown。" />
+  <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Loop → Markdown 轉換器</h1>
+    <p class="subtitle">
+      在下方編輯區直接 <kbd>Ctrl</kbd>+<kbd>V</kbd> 貼上從 Microsoft Loop 複製的內容，
+      即會自動轉成 Markdown。
+    </p>
+  </header>
+
+  <div class="toolbar">
+    <button id="btn-paste" type="button" title="從剪貼簿讀取並轉換">📋 從剪貼簿貼上並轉換</button>
+    <button id="btn-copy" type="button" title="複製目前的 Markdown 原始碼">複製 Markdown</button>
+    <button id="btn-download" type="button" title="下載為 .md 檔">下載 .md</button>
+    <button id="btn-clear" type="button" class="ghost" title="清空編輯區">清空</button>
+    <span id="status" class="status" role="status" aria-live="polite"></span>
+  </div>
+
+  <main>
+    <textarea id="editor" placeholder="在這裡貼上 Loop 內容（Ctrl+V）…"></textarea>
+  </main>
+
+  <footer class="app-footer">
+    <span>純前端工具，內容不會上傳；所有轉換都在你的瀏覽器中完成。</span>
+  </footer>
+
+  <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+  <script src="js/loop-to-markdown.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

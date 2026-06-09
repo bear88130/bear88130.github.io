@@ -1,0 +1,91 @@
+:root {
+  --bg: #f6f7f9;
+  --fg: #1f2328;
+  --muted: #57606a;
+  --border: #d0d7de;
+  --accent: #0969da;
+  --accent-fg: #fff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC",
+    "Microsoft JhengHei", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+.app-header {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 16px 8px;
+}
+.app-header h1 { margin: 0 0 4px; font-size: 1.5rem; }
+.subtitle { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+kbd {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0 5px;
+  font-size: 0.85em;
+}
+
+.toolbar {
+  max-width: 980px;
+  margin: 12px auto 0;
+  padding: 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.toolbar button {
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  cursor: pointer;
+}
+.toolbar button:hover { filter: brightness(1.06); }
+.toolbar button.ghost {
+  background: #fff;
+  color: var(--fg);
+}
+.status {
+  margin-left: auto;
+  font-size: 0.88rem;
+  color: var(--accent);
+}
+.status.error { color: #cf222e; }
+
+main {
+  max-width: 980px;
+  margin: 12px auto 0;
+  padding: 0 16px;
+}
+
+.app-footer {
+  max-width: 980px;
+  margin: 16px auto 32px;
+  padding: 0 16px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* EasyMDE 高度微調 */
+.EasyMDEContainer .CodeMirror { min-height: 420px; }
+.editor-preview, .editor-preview-side { font-size: 0.95rem; }
+.editor-preview table, .editor-preview-side table { border-collapse: collapse; }
+.editor-preview th, .editor-preview td,
+.editor-preview-side th, .editor-preview-side td {
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+}
