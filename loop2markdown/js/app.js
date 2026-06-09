@@ -15,7 +15,7 @@
       'preview', 'side-by-side', 'fullscreen', '|',
       'guide'
     ],
-    renderingConfig: { singleLineBreaks: false }
+    renderingConfig: { singleLineBreaks: true }
   });
 
   var statusEl = document.getElementById('status');
